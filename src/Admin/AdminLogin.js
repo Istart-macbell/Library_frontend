@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const AdminLoginPage = () => {
+const AdminLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -59,4 +59,4 @@ const AdminLoginPage = () => {
   );
 };
 
-export default AdminLoginPage;
+export default AdminLogin;
