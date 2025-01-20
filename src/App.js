@@ -2,7 +2,8 @@ import './App.css';
 
 function App() {
   return (
-<div>hii</div>
+
+    <h1 className="text-3xl">This is for test purpose</h1>
   );
 }
 
