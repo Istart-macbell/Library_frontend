@@ -4,8 +4,8 @@ import AdminLogin from './Admin/AdminLogin';
 import Signup from './Admin/Signup'
 import Login from './Staff/Login'
 import UserLoginPage from './User/UserLogin';
-
-
+import UserSidebar from './User/Usersidebar';
+import UserDashboard from './User/Dashboard';
 function App() {
   return (
     <Router>
@@ -25,6 +25,12 @@ function App() {
 
         {/* User Section */}
         <Route path="/user-login" element={<UserLoginPage />} />
+        <Route path="/user-sidear" element={<UserSidebar />} />
+        <Route path="/user-dashboard" element={<UserDashboard/>} />
+
+
+
+
 
 
 
