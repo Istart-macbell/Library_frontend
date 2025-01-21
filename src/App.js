@@ -1,18 +1,36 @@
 import './App.css';
-import Signup from './components/Signup';
-import Login from "./components/Login";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import AdminLogin from './Admin/AdminLogin';
+import Signup from './Admin/Signup'
+import Login from './Staff/Login'
+import UserLoginPage from './User/UserLogin';
+
 
 function App() {
   return (
-    <>
+    <Router>
+    <div>
+      <Routes>
+        {/* Define routes for each component */}
+        <Route path="/" element={<Signup />} />
+        <Route path="/admin-login" element={<AdminLogin />} />
 
-    {/* // <h1 className="text-3xl">This is for test purpose</h1> */}
-    <Signup/>
-    <Login />
-    <AdminLogin/>
 
-    </>
+
+
+        {/* Staff Section */}
+        <Route path="/staff-login" element={<Login />} />
+
+
+
+        {/* User Section */}
+        <Route path="/user-login" element={<UserLoginPage />} />
+
+
+
+      </Routes>
+    </div>
+  </Router>
   
   );
 }
