@@ -6,14 +6,26 @@ import Login from './Staff/Login'
 import UserLoginPage from './User/UserLogin';
 import UserSidebar from './User/Usersidebar';
 import UserDashboard from './User/Dashboard';
+import Admin from "./components/Admin"
+import DashboardBlock from './components/DashboardBlock';
+import GrowthGraph from './components/GrowthGraph';
+import Navbar from './components/Navbar';
+import Sidebar from './components/Sidebar';
+import PieChart from './components/PieChart';
 function App() {
   return (
     <Router>
     <div>
       <Routes>
         {/* Define routes for each component */}
-        <Route path="/" element={<Signup />} />
+        <Route path="/signup" element={<Signup />} />
         <Route path="/admin-login" element={<AdminLogin />} />
+        <Route path="/" element={<Admin/>}> </Route>
+      <Route path="/dashboardB" element={<DashboardBlock/>}> </Route>
+      <Route path="/growthgraph" element={<GrowthGraph/>}> </Route>
+      <Route path="/navbar" element={<Navbar/>}> </Route>
+      <Route path="/sidebar" element={<Sidebar/>}> </Route>
+      <Route path="/piechart" element={<PieChart/>}> </Route>
 
 
 
@@ -37,8 +49,6 @@ function App() {
       </Routes>
     </div>
   </Router>
-  
-  );
+  )
 }
-
 export default App;
