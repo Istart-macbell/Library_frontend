@@ -11,6 +11,7 @@ import DashboardBlock from './components/DashboardBlock';
 import Navbar from './components/Navbar';
 import Sidebar from './components/Sidebar';
 import StaffDashboard from './Staff/StaffDashboard';
+import CreateUser from './Admin/Createuser'
 
 function App() {
   return (
