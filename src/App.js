@@ -10,6 +10,7 @@ import Admin from "./components/Admin"
 import DashboardBlock from './components/DashboardBlock';
 import Navbar from './components/Navbar';
 import Sidebar from './components/Sidebar';
+import StaffDashboard from './Staff/StaffDashboard';
 
 function App() {
   return (
@@ -20,15 +21,16 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/admin-login" element={<AdminLogin />} />
         <Route path="/" element={<Admin/>}> </Route>
-      <Route path="/dashboardB" element={<DashboardBlock/>}> </Route>
-      <Route path="/navbar" element={<Navbar/>}> </Route>
-      <Route path="/sidebar" element={<Sidebar/>}> </Route>
+        <Route path="/dashboardB" element={<DashboardBlock/>}> </Route>
+        <Route path="/navbar" element={<Navbar/>}> </Route>
+        <Route path="/sidebar" element={<Sidebar/>}> </Route>
 
 
 
 
         {/* Staff Section */}
         <Route path="/staff-login" element={<Login />} />
+        <Route path="/staff-dashboard" element={<StaffDashboard />} />
 
 
 
