@@ -10,8 +10,8 @@ import Admin from "./components/Admin"
 import DashboardBlock from './components/DashboardBlock';
 import Navbar from './components/Navbar';
 import Sidebar from './components/Sidebar';
-import StaffDashboard from './Staff/StaffDashboard';
-import CreateUser from './Admin/Createuser'
+import CreateUser from './Admin/Createuser';
+import AddBookPage from './Admin/Createbook';
 
 function App() {
   return (
@@ -26,6 +26,8 @@ function App() {
       <Route path="/navbar" element={<Navbar/>}> </Route>
       <Route path="/sidebar" element={<Sidebar/>}> </Route>
       <Route path="/add-user" element={<CreateUser />} />
+      <Route path="/add-book" element={<AddBookPage />} />
+
 
       
 
