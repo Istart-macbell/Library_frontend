@@ -38,7 +38,7 @@ const Staffpage = () => {
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
         <div className="w-full max-w-4xl p-8 bg-white rounded-lg shadow-lg">
         <h1 className="mb-6 text-2xl font-bold text-center text-gray-700">
-            Add Staff
+             Staff Page
         </h1>
         <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-6 md:grid-cols-2">
           {/* First Name */}
@@ -240,7 +240,7 @@ const Staffpage = () => {
             type="submit"
             className="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
             >
-            Staffpage
+            Staff Page
             </button>
         </div>
         </form>
