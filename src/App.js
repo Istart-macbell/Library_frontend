@@ -10,6 +10,7 @@ import Admin from "./components/Admin"
 import DashboardBlock from './components/DashboardBlock';
 import Navbar from './components/Navbar';
 import Sidebar from './components/Sidebar';
+import CreateUser from './Admin/Createuser';
 
 function App() {
   return (
@@ -23,6 +24,9 @@ function App() {
       <Route path="/dashboardB" element={<DashboardBlock/>}> </Route>
       <Route path="/navbar" element={<Navbar/>}> </Route>
       <Route path="/sidebar" element={<Sidebar/>}> </Route>
+      <Route path="/add-user" element={<CreateUser />} />
+
+      
 
 
 
