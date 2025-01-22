@@ -2,9 +2,8 @@ import React from 'react';
 import Sidebar from './Sidebar.jsx';
 import Navbar from './Navbar.jsx';
 import DashboardBlock from './DashboardBlock.jsx';
-import PieChart from './PieChart.jsx';
-import GrowthGraph from './GrowthGraph.jsx';
 import './Admin.css';
+import Graph from './Graph.jsx';
 
 const Admin = () => {
   return (
@@ -15,11 +14,12 @@ const Admin = () => {
         <div className="content">
           <div className="dashboard-blocks">
             <DashboardBlock title="Staff" count={50} />
-            <DashboardBlock title="User" count={200} />
+            <DashboardBlock title="Student User" count={200} />
+            <DashboardBlock title="Books" count={500} />
+            <DashboardBlock title="Total Income" count={2200} />
           </div>
           <div className="charts">
-            <PieChart />
-            <GrowthGraph />
+            <Graph />
           </div>
         </div>
       </div>

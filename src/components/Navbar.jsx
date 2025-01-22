@@ -11,7 +11,7 @@ const Navbar = () => {
       <h1>Admin Dashboard</h1>
       <div>
         <button className="btn"
-        onClick={()=>navigate('/login')}>Login</button>
+        onClick={()=>navigate('/admin-login')}>Login</button>
         <button className="btn"
         onClick={()=>navigate('/signup')}>Signup</button>
       </div>
