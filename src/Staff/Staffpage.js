@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const Staffpage = () => {
+const StaffPage = () => {
     const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -249,4 +249,4 @@ const Staffpage = () => {
 );
 };
 
-export default Staffpage;
+export default StaffPage;
