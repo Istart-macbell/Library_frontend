@@ -8,10 +8,9 @@ import UserSidebar from './User/Usersidebar';
 import UserDashboard from './User/Dashboard';
 import Admin from "./components/Admin"
 import DashboardBlock from './components/DashboardBlock';
-import GrowthGraph from './components/GrowthGraph';
 import Navbar from './components/Navbar';
 import Sidebar from './components/Sidebar';
-import PieChart from './components/PieChart';
+
 function App() {
   return (
     <Router>
@@ -22,10 +21,8 @@ function App() {
         <Route path="/admin-login" element={<AdminLogin />} />
         <Route path="/" element={<Admin/>}> </Route>
       <Route path="/dashboardB" element={<DashboardBlock/>}> </Route>
-      <Route path="/growthgraph" element={<GrowthGraph/>}> </Route>
       <Route path="/navbar" element={<Navbar/>}> </Route>
       <Route path="/sidebar" element={<Sidebar/>}> </Route>
-      <Route path="/piechart" element={<PieChart/>}> </Route>
 
 
 

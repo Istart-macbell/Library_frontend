@@ -11,20 +11,47 @@ const Sidebar = () => {
   return (
     <div className="sidebar">
       <ul>
-        <li onClick={() => toggleSection('section1')}>Administration</li>
-        {openSection === 'section1' && (
-          <ul>
-            <li>Admin Section</li>
-            <li>Academics</li>
-          </ul>
-        )}
-        <li onClick={() => toggleSection('section2')}>Student</li>
-        {openSection === 'section2' && (
-          <ul>
-            <li>Student Info</li>
-            <li>Timetable</li>
-          </ul>
-        )}
+        <li>
+          <div className="dropdown-header" onClick={() => toggleSection('administration')}>
+            Administration <span className="dropdown-icon">{openSection === 'administration' ? '▲' : '▼'}</span>
+          </div>
+          {openSection === 'administration' && (
+            <ul className="dropdown-content">
+              <li>All Staff</li>
+              <li>Add Staff</li>
+            </ul>
+          )}
+        </li>
+
+        <li>
+          <div className="dropdown-header" onClick={() => toggleSection('student')}>
+            Student <span className="dropdown-icon">{openSection === 'student' ? '▲' : '▼'}</span>
+          </div>
+          {openSection === 'student' && (
+            <ul className="dropdown-content">
+              <li>All Students</li>
+              <li>Add Student</li>
+              <li>Fee</li>
+            </ul>
+          )}
+        </li>
+        <li>
+          <div className="dropdown-header" onClick={() => toggleSection('book')}>
+            Books <span className="dropdown-icon">{openSection === 'book' ? '▲' : '▼'}</span>
+          </div>
+          {openSection === 'book' && (
+            <ul className="dropdown-content">
+              <li>All Books</li>
+              <li>Add Book</li>
+            </ul>
+          )}
+        </li>
+        <li className="settings">
+          <div>Settings</div>
+        </li>
+        <li className="logout">
+          <div>Logout</div>
+        </li>
       </ul>
     </div>
   );
