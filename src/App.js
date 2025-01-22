@@ -12,6 +12,7 @@ import Navbar from './components/Navbar';
 import Sidebar from './components/Sidebar';
 import CreateUser from './Admin/Createuser';
 import AddBookPage from './Admin/Createbook';
+import StaffDashboard from './Staff/StaffDashboard';
 
 function App() {
   return (
