@@ -21,9 +21,12 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/admin-login" element={<AdminLogin />} />
         <Route path="/" element={<Admin/>}> </Route>
-        <Route path="/dashboardB" element={<DashboardBlock/>}> </Route>
-        <Route path="/navbar" element={<Navbar/>}> </Route>
-        <Route path="/sidebar" element={<Sidebar/>}> </Route>
+      <Route path="/dashboardB" element={<DashboardBlock/>}> </Route>
+      <Route path="/navbar" element={<Navbar/>}> </Route>
+      <Route path="/sidebar" element={<Sidebar/>}> </Route>
+      <Route path="/add-user" element={<CreateUser />} />
+
+      
 
 
 
