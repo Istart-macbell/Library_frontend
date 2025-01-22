@@ -1,17 +1,21 @@
+.dashboard{
+  display: flex;
+  justify-content: center;
+}
 .dashboard-block {
-    background: #f8f9fa;
     padding: 20px;
     border: 1px solid #ddd;
     border-radius: 5px;
     text-align: center;
-    width: 150px;
+    width: 250px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   }
   
   .dashboard-block h2 {
     margin: 0 0 10px;
-    font-size: 18px;
+    font-size: 25px;
     color: #333;
+    font-weight: bold;
   }
   
   .dashboard-block p {
