@@ -1,18 +1,20 @@
-import './App.css';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import AdminLogin from './Admin/AdminLogin';
-import Signup from './Admin/Signup'
-import Login from './Staff/Login'
-import UserLoginPage from './User/UserLogin';
-import UserSidebar from './User/Usersidebar';
-import UserDashboard from './User/Dashboard';
-import Admin from "./components/Admin"
+import AddBookPage from './Admin/Createbook';
+import CreateUser from './Admin/Createuser';
+import Signup from './Admin/Signup';
+import './App.css';
+import Admin from "./components/Admin";
 import DashboardBlock from './components/DashboardBlock';
 import Navbar from './components/Navbar';
 import Sidebar from './components/Sidebar';
-import CreateUser from './Admin/Createuser';
-import AddBookPage from './Admin/Createbook';
+import BookTable from './Staff/Booktable';
+import Login from './Staff/Login';
 import StaffDashboard from './Staff/StaffDashboard';
+import Staffpage from './Staff/Staffpage';
+import UserDashboard from './User/Dashboard';
+import UserLoginPage from './User/UserLogin';
+import UserSidebar from './User/Usersidebar';
 
 function App() {
   return (
@@ -28,6 +30,9 @@ function App() {
       <Route path="/sidebar" element={<Sidebar/>}> </Route>
       <Route path="/add-user" element={<CreateUser />} />
       <Route path="/add-book" element={<AddBookPage />} />
+      <Route path="/add-staff" element={<Staffpage />} />
+      
+
 
 
       
@@ -38,6 +43,8 @@ function App() {
         {/* Staff Section */}
         <Route path="/staff-login" element={<Login />} />
         <Route path="/staff-dashboard" element={<StaffDashboard />} />
+        <Route path="/staff-booktable" element={<BookTable />} />
+        
 
 
 
