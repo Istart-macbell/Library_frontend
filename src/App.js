@@ -16,6 +16,7 @@ import UserDashboard from './User/Dashboard';
 import UserLoginPage from './User/UserLogin';
 import UserSidebar from './User/Usersidebar';
 import UserTable from './User/Usertable';
+import StaffTable from './Staff/StaffTable';
 
 function App() {
   return (
@@ -32,6 +33,8 @@ function App() {
       <Route path="/add-user" element={<CreateUser />} />
       <Route path="/add-book" element={<AddBookPage />} />
       <Route path="/add-staff" element={<Staffpage />} />
+      <Route path="/staffs" element={<StaffTable />} />
+
       
 
 
