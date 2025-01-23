@@ -15,6 +15,7 @@ import Staffpage from './Staff/Staffpage';
 import UserDashboard from './User/Dashboard';
 import UserLoginPage from './User/UserLogin';
 import UserSidebar from './User/Usersidebar';
+import UserTable from './User/Usertable';
 
 function App() {
   return (
@@ -52,6 +53,8 @@ function App() {
         <Route path="/user-login" element={<UserLoginPage />} />
         <Route path="/user-sidear" element={<UserSidebar />} />
         <Route path="/user-dashboard" element={<UserDashboard/>} />
+        <Route path="/user-table" element={<UserTable/>} />
+
 
 
 
