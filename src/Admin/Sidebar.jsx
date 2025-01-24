@@ -16,7 +16,7 @@ const Sidebar = () => {
     setOpenSection(openSection === section ? null : section);
   };
 
-  const handleLogout = async () => {
+  const handledLogout = async () => {
     try {
       const response = await axios.post("https://library-backend-4335.onrender.com/api/admin/admin-logout", null, {
         withCredentials: true, 
