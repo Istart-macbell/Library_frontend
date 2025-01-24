@@ -45,9 +45,9 @@ const Sidebar = () => {
             {openSection === "administration" && (
               <ul className="pl-8 space-y-2">
                 <li className="hover:text-gray-400"
-                onClick={()=>navigate('/allstaff')}>All Staff</li>
+                onClick={()=>navigate('/staffs')}>All Staff</li>
                 <li className="hover:text-gray-400"
-                onClick={()=>navigate('/addstaff')}>Add Staff</li>
+                onClick={()=>navigate('/add-staff')}>Add Staff</li>
               </ul>
             )}
           </li>
@@ -64,11 +64,11 @@ const Sidebar = () => {
             {openSection === "student" && (
               <ul className="pl-8 space-y-2">
                 <li className="hover:text-gray-400"
-                onClick={()=>navigate('/allstudent')}>All Students</li>
+                onClick={()=>navigate()}>All Students</li>
                 <li className="hover:text-gray-400"
-                onClick={()=>navigate('/addstudent')}>Add Student</li>
+                onClick={()=>navigate('/add-user')}>Add Student</li>
                 <li className="hover:text-gray-400"
-                onClick={()=>navigate('/fee')}>Fee</li>
+                onClick={()=>navigate()}>Fee</li>
               </ul>
             )}
           </li>
@@ -85,9 +85,9 @@ const Sidebar = () => {
             {openSection === "book" && (
               <ul className="pl-8 space-y-2">
                 <li className="hover:text-gray-400"
-                onClick={()=>navigate('/allbook')}>All Books</li>
+                onClick={()=>navigate('/get-books')}>All Books</li>
                 <li className="hover:text-gray-400"
-                onClick={()=>navigate('/addbook')}>Add Book</li>
+                onClick={()=>navigate('/add-book')}>Add Book</li>
               </ul>
             )}
           </li>
