@@ -12,11 +12,12 @@ import BookTable from './Staff/Booktable';
 import Login from './Staff/Login';
 import StaffDashboard from './Staff/StaffDashboard';
 import Staffpage from './Staff/Staffpage';
+import StaffTable from './Staff/StaffTable';
 import UserDashboard from './User/Dashboard';
 import UserLoginPage from './User/UserLogin';
+import UserProfile from './User/Userprofile';
 import UserSidebar from './User/Usersidebar';
 import UserTable from './User/Usertable';
-import StaffTable from './Staff/StaffTable';
 
 function App() {
   return (
@@ -57,6 +58,7 @@ function App() {
         <Route path="/user-sidear" element={<UserSidebar />} />
         <Route path="/user-dashboard" element={<UserDashboard/>} />
         <Route path="/user-table" element={<UserTable/>} />
+        <Route path="/user-profile" element={<UserProfile/>} />
 
 
 
