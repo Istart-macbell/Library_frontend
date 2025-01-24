@@ -18,6 +18,7 @@ import UserLoginPage from './User/UserLogin';
 import UserProfile from './User/Userprofile';
 import UserSidebar from './User/Usersidebar';
 import UserTable from './User/Usertable';
+import LibrarySettings from './Admin/Setting';
 
 function App() {
   return (
@@ -35,6 +36,8 @@ function App() {
       <Route path="/add-book" element={<AddBookPage />} />
       <Route path="/add-staff" element={<Staffpage />} />
       <Route path="/staffs" element={<StaffTable />} />
+      <Route path="/setting" element={<LibrarySettings/>} />
+
 
       
 
