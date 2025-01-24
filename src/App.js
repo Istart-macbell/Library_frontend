@@ -1,15 +1,25 @@
-import './App.css';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import AdminLogin from './Admin/AdminLogin';
-import Signup from './Admin/Signup'
-import Login from './Staff/Login'
-import UserLoginPage from './User/UserLogin';
-import UserSidebar from './User/Usersidebar';
+import AddBookPage from './Admin/Createbook';
+import CreateUser from './Admin/Createuser';
+import Signup from './Admin/Signup';
+import './App.css';
+import Admin from "./components/Admin";
+import DashboardBlock from './components/DashboardBlock';
+import Navbar from './components/Navbar';
+import Sidebar from './components/Sidebar';
+import BookTable from './Staff/Booktable';
+import Login from './Staff/Login';
+import StaffDashboard from './Staff/StaffDashboard';
+import Staffpage from './Staff/Staffpage';
+import StaffTable from './Staff/StaffTable';
 import UserDashboard from './User/Dashboard';
-import Admin from "./Admin/Admin"
-import DashboardBlock from './Admin/DashboardBlock';
-import Navbar from './Admin/Navbar';
-import Sidebar from './Admin/Sidebar';
+import UserLoginPage from './User/UserLogin';
+import UserProfile from './User/Userprofile';
+import UserSidebar from './User/Usersidebar';
+import UserTable from './User/Usertable';
+import LibrarySettings from './Admin/Setting';
+
 
 function App() {
   return (
@@ -23,12 +33,27 @@ function App() {
       <Route path="/dashboardB" element={<DashboardBlock/>}> </Route>
       <Route path="/navbar" element={<Navbar/>}> </Route>
       <Route path="/sidebar" element={<Sidebar/>}> </Route>
+      <Route path="/add-user" element={<CreateUser />} />
+      <Route path="/add-book" element={<AddBookPage />} />
+      <Route path="/add-staff" element={<Staffpage />} />
+      <Route path="/staffs" element={<StaffTable />} />
+      <Route path="/setting" element={<LibrarySettings/>} />
+
+
+      
+
+
+
+      
 
 
 
 
         {/* Staff Section */}
         <Route path="/staff-login" element={<Login />} />
+        <Route path="/staff-dashboard" element={<StaffDashboard />} />
+        <Route path="/staff-booktable" element={<BookTable />} />
+        
 
 
 
@@ -36,6 +61,9 @@ function App() {
         <Route path="/user-login" element={<UserLoginPage />} />
         <Route path="/user-sidear" element={<UserSidebar />} />
         <Route path="/user-dashboard" element={<UserDashboard/>} />
+        <Route path="/user-table" element={<UserTable/>} />
+        <Route path="/user-profile" element={<UserProfile/>} />
+
 
 
 

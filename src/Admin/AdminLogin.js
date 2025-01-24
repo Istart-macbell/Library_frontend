@@ -1,18 +1,51 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const AdminLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [loading,setLoading]=useState(false);
+  const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
+    if(loading) return;
     e.preventDefault();
     if (email === "" || password === "") {
       setError("Please fill in both fields.");
       return;
     }
     setError("");
-    console.log("Logging in with:", { email, password });
+    setLoading(true);
+    try {
+      const response = await fetch("https://library-backend-4335.onrender.com/api/admin/admin-login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await response.json();
+      console.log(data);
+      
+      // If login is successful
+      if (response.ok) {
+        // storing token
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("adminId", data._id);
+
+        // redirecting
+        navigate("/admin-dashboard");
+      } else {
+        setError(data.message || "Login failed. Please try again.");
+      }
+    } catch (err) {
+      setError("An error occurred. Please try again.");
+    }
+    finally{
+      setLoading(false);
+    }
   };
 
   return (
@@ -53,7 +86,7 @@ const AdminLogin = () => {
               type="submit"
               className="w-full py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-300"
             >
-              Login
+              {loading ? "Loading...":"Log in"}
             </button>
           </form>
         </div>

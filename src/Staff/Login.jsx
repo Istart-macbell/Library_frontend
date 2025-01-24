@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const navigate=useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
 
@@ -18,17 +20,40 @@ const Login = () => {
 
     setIsLoading(true);
 
-    // Simulate a login request
-    setTimeout(() => {
-      setIsLoading(false);
-      // Simulate a failed login
-      if (email !== 'staff@example.com' || password !== 'password123') {
-        setError('Invalid email or password.');
+    try {
+      const response = await fetch(
+        'https://library-backend-4335.onrender.com/api/staff/login-staff',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email, password }),
+        }
+      );
+
+      const data = await response.json();
+
+      if (response.ok) {
+        // Login Sucess
+        console.log('Login successful:', data);
+
+        // if token then save it
+        localStorage.setItem('authToken', data.token);
+
+        //redirecting to staff-dashboard
+        navigate('/staff-dashboard');
+        
       } else {
-        // Handle successful login (e.g., redirect to dashboard)
-        console.log('Login successful!');
+        // Handle API errors
+        setError(data.message || 'Login failed. Please try again.');
       }
-    }, 2000);
+    } catch (err) {
+      // Handle network errors
+      setError('Something went wrong. Please try again later.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
