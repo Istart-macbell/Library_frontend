@@ -6,10 +6,10 @@ import Login from './Staff/Login'
 import UserLoginPage from './User/UserLogin';
 import UserSidebar from './User/Usersidebar';
 import UserDashboard from './User/Dashboard';
-import Admin from "./components/Admin"
-import DashboardBlock from './components/DashboardBlock';
-import Navbar from './components/Navbar';
-import Sidebar from './components/Sidebar';
+import Admin from "./Admin/Admin"
+import DashboardBlock from './Admin/DashboardBlock';
+import Navbar from './Admin/Navbar';
+import Sidebar from './Admin/Sidebar';
 
 function App() {
   return (
