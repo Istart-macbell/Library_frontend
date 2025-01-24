@@ -9,6 +9,10 @@ import LibrarySettings from './Admin/Setting';
 import Sidebar from './Admin/Sidebar';
 import Signup from './Admin/Signup';
 import './App.css';
+import Admin from "./Admin/Admin";
+import DashboardBlock from './Admin/DashboardBlock';
+import Navbar from './Admin/Navbar';
+import Sidebar from './Admin/Sidebar';
 import BookTable from './Staff/Booktable';
 import Login from './Staff/Login';
 import StaffDashboard from './Staff/StaffDashboard';
@@ -20,10 +24,9 @@ import UserLoginPage from './User/UserLogin';
 import UserProfile from './User/Userprofile';
 import UserSidebar from './User/Usersidebar';
 import UserTable from './User/Usertable';
-
 import AddBook from './Admin/Addbook';
- 
-
+import LibrarySettings from './Admin/Setting';
+import AllBooks from './Admin/AllBooks';
 
 
 function App() {
@@ -40,6 +43,7 @@ function App() {
       <Route path="/sidebar" element={<Sidebar/>}/>
       <Route path="/add-user" element={<CreateUser />} />
       <Route path="/add-book" element={<AddBookPage />} />
+      <Route path="/get-books" element={<AllBooks/>} />
       <Route path="/add-staff" element={<Staffpage />} />
       <Route path="/staffs" element={<StaffTable />} />
       <Route path="/setting" element={<LibrarySettings/>} />
