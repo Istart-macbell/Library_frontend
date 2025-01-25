@@ -1,77 +1,35 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 const BooksTable = () => {
-  const data = [
-    {
-      id: "679142b01a6f1d2845a980d7",
-      title: "The Great Gatsby",
-      author: "F. Scott Fitzgerald",
-      ISBN: "9780743273565",
-      category: "Fiction",
-      availableCopies: 5,
-      totalCopies: 10,
-      price: 10.99,
-    },
-    {
-      id: "2",
-      title: "To Kill a Mockingbird",
-      author: "Harper Lee",
-      ISBN: "9780061120084",
-      category: "Fiction",
-      availableCopies: 3,
-      totalCopies: 8,
-      price: 7.99,
-    },
-    {
-      id: "3",
-      title: "1984",
-      author: "George Orwell",
-      ISBN: "9780451524935",
-      category: "Fiction",
-      availableCopies: 4,
-      totalCopies: 10,
-      price: 9.99,
-    },
-    {
-      id: "4",
-      title: "The Catcher in the Rye",
-      author: "J.D. Salinger",
-      ISBN: "9780316769488",
-      category: "Fiction",
-      availableCopies: 6,
-      totalCopies: 10,
-      price: 11.99,
-    },
-    {
-      id: "5",
-      title: "The Lord of the Rings",
-      author: "J.R.R. Tolkien",
-      ISBN: "9780544003415",
-      category: "Fantasy",
-      availableCopies: 7,
-      totalCopies: 10,
-      price: 15.99,
-    },
-    {
-      id: "6",
-      title: "Pride and Prejudice",
-      author: "Jane Austen",
-      ISBN: "9780141040349",
-      category: "Fiction",
-      availableCopies: 2,
-      totalCopies: 5,
-      price: 6.99,
-    },
-  ];
-
+  const [books, setBooks] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
   const rowsPerPage = 5;
 
+  useEffect(() => {
+    // Fetch data from API
+    axios
+      .get("https://library-backend-4335.onrender.com/api/admin/getbooks")
+      .then((response) => {
+        if (response.data.message === "Books retrieved successfully") {
+          setBooks(response.data.books); // Set the books data from API
+        }
+        setLoading(false);
+      })
+      .catch((err) => {
+        setError("Failed to load books");
+        setLoading(false);
+      });
+  }, []);
+
   // Pagination calculations
-  const totalPages = Math.ceil(data.length / rowsPerPage);
+  const totalPages = Math.ceil(books.length / rowsPerPage);
   const startIndex = (currentPage - 1) * rowsPerPage;
   const endIndex = startIndex + rowsPerPage;
-  const currentData = data.slice(startIndex, endIndex);
+  const currentData = books.slice(startIndex, endIndex);
 
   const handlePrev = () => {
     if (currentPage > 1) setCurrentPage(currentPage - 1);
@@ -88,6 +46,10 @@ const BooksTable = () => {
           Books Table
         </h1>
 
+        {/* Loading and Error Handling */}
+        {loading && <p className="text-center text-gray-500">Loading books...</p>}
+        {error && <p className="text-center text-red-500">{error}</p>}
+
         {/* Table */}
         <div className="overflow-x-auto">
           <table className="w-full border border-collapse border-gray-300 table-auto">
@@ -98,38 +60,20 @@ const BooksTable = () => {
                 <th className="px-4 py-2 border-b border-gray-300">ISBN</th>
                 <th className="px-4 py-2 border-b border-gray-300">Category</th>
                 <th className="px-4 py-2 border-b border-gray-300">Price</th>
-                <th className="px-4 py-2 border-b border-gray-300">
-                  Available Copies
-                </th>
-                <th className="px-4 py-2 border-b border-gray-300">
-                  Total Copies
-                </th>
+                <th className="px-4 py-2 border-b border-gray-300">Available Copies</th>
+                <th className="px-4 py-2 border-b border-gray-300">Total Copies</th>
               </tr>
             </thead>
             <tbody>
               {currentData.map((book) => (
-                <tr key={book.id} className="text-center">
-                  <td className="px-4 py-2 border-b border-gray-300">
-                    {book.title}
-                  </td>
-                  <td className="px-4 py-2 border-b border-gray-300">
-                    {book.author}
-                  </td>
-                  <td className="px-4 py-2 border-b border-gray-300">
-                    {book.ISBN}
-                  </td>
-                  <td className="px-4 py-2 border-b border-gray-300">
-                    {book.category}
-                  </td>
-                  <td className="px-4 py-2 border-b border-gray-300">
-                    ${book.price}
-                  </td>
-                  <td className="px-4 py-2 border-b border-gray-300">
-                    {book.availableCopies}
-                  </td>
-                  <td className="px-4 py-2 border-b border-gray-300">
-                    {book.totalCopies}
-                  </td>
+                <tr key={book._id} className="text-center">
+                  <td className="px-4 py-2 border-b border-gray-300">{book.title}</td>
+                  <td className="px-4 py-2 border-b border-gray-300">{book.author}</td>
+                  <td className="px-4 py-2 border-b border-gray-300">{book.ISBN}</td>
+                  <td className="px-4 py-2 border-b border-gray-300">{book.category}</td>
+                  <td className="px-4 py-2 border-b border-gray-300">${book.price}</td>
+                  <td className="px-4 py-2 border-b border-gray-300">{book.availableCopies}</td>
+                  <td className="px-4 py-2 border-b border-gray-300">{book.totalCopies}</td>
                 </tr>
               ))}
             </tbody>
@@ -166,3 +110,4 @@ const BooksTable = () => {
 };
 
 export default BooksTable;
+
