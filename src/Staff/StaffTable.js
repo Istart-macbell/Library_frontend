@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
+import Modal from "./Modal";
 
 const StaffTable = () => {
   const [staffData, setStaffData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const rowsPerPage = 5;
 
   const API_URL = "https://library-backend-4335.onrender.com/api/admin/staffs";
@@ -46,6 +48,30 @@ const StaffTable = () => {
 
   const handleNext = () => {
     if (currentPage < totalPages) setCurrentPage(currentPage + 1);
+  };
+
+
+  // All about add salary form
+  const [formData, setFormData] = useState({
+    amount: "",
+    paymentMethod: "",
+    remarks: "",
+    date: new Date().toISOString().substring(0, 10), // Default to current date
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const finalData = {
+      ...formData,
+      date: formData.date || new Date().toISOString().substring(0, 10), // Ensure date defaults
+    };
+    console.log("Form Submitted:", finalData);
+    // Add your API call or logic here
   };
 
   return (
@@ -103,6 +129,9 @@ const StaffTable = () => {
                     <th className="px-4 py-2 border-b border-gray-300">
                       Created At
                     </th>
+                    <th className="px-4 py-2 border-b border-gray-300">
+                      Action
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -147,10 +176,124 @@ const StaffTable = () => {
                       <td className="px-4 py-2 border-b border-gray-300">
                         {new Date(staffMember.createdAt).toLocaleString()}
                       </td>
+                      <td className="px-4 py-2 border-b border-gray-300">
+                        <button
+                          onClick={() => setIsModalOpen(true)}
+                          className="text-sm px-2 py-1 bg-green-500 text-white hover:scale-105 duration-75 hover:bg-green-600"
+                        >
+                          Add Salary
+                        </button>
+                      </td>
                     </tr>
                   ))}
                 </tbody>
               </table>
+
+              {/* popup for add salary button */}
+              <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+                <div className="max-w-md mx-auto bg-white p-6 rounded-lg shadow-md">
+                  <h2 className="text-2xl font-bold mb-4">Payment Form</h2>
+                  <form onSubmit={handleSubmit}>
+                    {/* Amount */}
+                    <div className="mb-4">
+                      <label
+                        htmlFor="amount"
+                        className="block text-gray-700 font-medium mb-2"
+                      >
+                        Amount
+                      </label>
+                      <input
+                        type="number"
+                        id="amount"
+                        name="amount"
+                        value={formData.amount}
+                        onChange={(e)=>setFormData((prev) => ({ ...prev, amount: e.target.value }))}
+                        className="w-full p-2 border rounded-lg"
+                        required
+                      />
+                    </div>
+
+                    {/* Payment Method */}
+                    <div className="mb-4">
+                      <label
+                        htmlFor="paymentMethod"
+                        className="block text-gray-700 font-medium mb-2"
+                      >
+                        Payment Method
+                      </label>
+                      <select
+                        id="paymentMethod"
+                        name="paymentMethod"
+                        value={formData.paymentMethod}
+                        onChange={handleChange}
+                        className="w-full p-2 border rounded-lg"
+                        required
+                      >
+                        <option value="">Select Payment Method</option>
+                        <option value="Credit Card">Credit Card</option>
+                        <option value="Debit Card">Debit Card</option>
+                        <option value="PayPal">PayPal</option>
+                        <option value="Cash">Cash</option>
+                      </select>
+                    </div>
+
+                    {/* Remarks */}
+                    <div className="mb-4">
+                      <label
+                        htmlFor="remarks"
+                        className="block text-gray-700 font-medium mb-2"
+                      >
+                        Remarks
+                      </label>
+                      <textarea
+                        id="remarks"
+                        name="remarks"
+                        value={formData.remarks}
+                        onChange={handleChange}
+                        className="w-full p-2 border rounded-lg"
+                        rows="3"
+                      />
+                    </div>
+
+                    {/* Date */}
+                    <div className="mb-4">
+                      <label
+                        htmlFor="date"
+                        className="block text-gray-700 font-medium mb-2"
+                      >
+                        Date
+                      </label>
+                      <input
+                        type="date"
+                        id="date"
+                        name="date"
+                        value={formData.date}
+                        onChange={handleChange}
+                        className="w-full p-2 border rounded-lg"
+                      />
+                    </div>
+
+                    <div className="flex items-center justify-between">
+
+                    {/* close button */}
+                      <button
+                        onClick={()=>setIsModalOpen(false)}
+                        className="w-[30%] bg-blue-500 text-white font-bold py-2 rounded-lg hover:bg-blue-600"
+                      >
+                        Close
+                      </button>
+
+                      {/* Submit Button */}
+                      <button
+                        type="submit"
+                        className="w-[30%] bg-blue-500 text-white font-bold py-2 rounded-lg hover:bg-blue-600"
+                      >
+                        Submit
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </Modal>
             </div>
 
             {/* Pagination */}
@@ -171,7 +314,9 @@ const StaffTable = () => {
                 onClick={handleNext}
                 disabled={currentPage === totalPages}
                 className={`px-4 py-2 bg-blue-500 text-white font-bold rounded-lg hover:bg-blue-600 focus:outline-none ${
-                  currentPage === totalPages ? "opacity-50 cursor-not-allowed" : ""
+                  currentPage === totalPages
+                    ? "opacity-50 cursor-not-allowed"
+                    : ""
                 }`}
               >
                 Next
