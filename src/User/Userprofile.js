@@ -1,5 +1,4 @@
 import React from 'react';
-
 const UserProfile = () => {
 
     const user = {
@@ -49,12 +48,12 @@ const UserProfile = () => {
                         <p className="text-gray-600">{user.email}</p>
                     </div>
                     <div className="p-4 border rounded-lg shadow-sm">
-                        <h3 className="text-lg font-semibold text-gray-700">Password</h3>
-                        <p className="text-gray-600">{user.password}</p>
-                    </div>
-                    <div className="p-4 border rounded-lg shadow-sm">
                         <h3 className="text-lg font-semibold text-gray-700">Phone</h3>
                         <p className="text-gray-600">{user.phone}</p>
+                    </div>
+                    <div className="p-4 border rounded-lg shadow-sm">
+                        <h3 className="text-lg font-semibold text-gray-700">Password</h3>
+                        <p className="text-gray-600">{user.password}</p>
                     </div>
                     <div className="p-4 border rounded-lg shadow-sm">
                         <h3 className="text-lg font-semibold text-gray-700">Date of Birth</h3>

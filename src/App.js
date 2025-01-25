@@ -1,25 +1,25 @@
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import Admin from './Admin/Admin';
 import AdminLogin from './Admin/AdminLogin';
 import AddBookPage from './Admin/Createbook';
 import CreateUser from './Admin/Createuser';
-import Signup from './Admin/Signup';
-import './App.css';
-import Admin from './Admin/Admin';
 import DashboardBlock from './Admin/DashboardBlock';
 import Navbar from './Admin/Navbar';
+import LibrarySettings from './Admin/Setting';
 import Sidebar from './Admin/Sidebar';
+import Signup from './Admin/Signup';
+import './App.css';
 import BookTable from './Staff/Booktable';
 import Login from './Staff/Login';
 import StaffDashboard from './Staff/StaffDashboard';
 import Staffpage from './Staff/Staffpage';
+import StaffProfile from './Staff/StaffProfile';
 import StaffTable from './Staff/StaffTable';
 import UserDashboard from './User/Dashboard';
 import UserLoginPage from './User/UserLogin';
 import UserProfile from './User/Userprofile';
 import UserSidebar from './User/Usersidebar';
 import UserTable from './User/Usertable';
-import LibrarySettings from './Admin/Setting';
-import StaffProfile from './Staff/StaffProfile';
 
 
 function App() {
