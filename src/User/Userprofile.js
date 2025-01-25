@@ -1,20 +1,46 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 
 const UserProfile = () => {
+    const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
-    const user = {
-        status: "active",
-        id: "67913edaf9485784e65b21ed",
-        role: "User",
-        firstName: "John",
-        lastName: "Doe",
-        email: "john.doe@example.com",
-        password:"jash@123",
-        phone: "1234567890",
-        dateOfBirth: "1990-01-01",
-        joiningDate: "2025-01-22",
-        fees: [],
-    };
+    useEffect(() => {
+        // Fetch user data from the API
+        axios
+            .get("https://library-backend-4335.onrender.com/api/user/get-user/67913edaf9485784e65b21ed")
+            .then((response) => {
+                if (response.data.message === "User fetched successfully") {
+                    setUser(response.data.user);
+                } else {
+                    setError("Failed to fetch user data");
+                }
+                setLoading(false);
+            })
+            .catch((err) => {
+                setError("Failed to load user data");
+                setLoading(false);
+            });
+    }, []);
+
+    // If loading, show a loading message
+    if (loading) {
+        return (
+            <div className="flex items-center justify-center min-h-screen">
+                <p className="text-gray-500">Loading user profile...</p>
+            </div>
+        );
+    }
+
+    // If there is an error, show an error message
+    if (error) {
+        return (
+            <div className="flex items-center justify-center min-h-screen">
+                <p className="text-red-500">{error}</p>
+            </div>
+        );
+    }
 
     return (
         <div
@@ -49,12 +75,12 @@ const UserProfile = () => {
                         <p className="text-gray-600">{user.email}</p>
                     </div>
                     <div className="p-4 border rounded-lg shadow-sm">
-                        <h3 className="text-lg font-semibold text-gray-700">Password</h3>
-                        <p className="text-gray-600">{user.password}</p>
-                    </div>
-                    <div className="p-4 border rounded-lg shadow-sm">
                         <h3 className="text-lg font-semibold text-gray-700">Phone</h3>
                         <p className="text-gray-600">{user.phone}</p>
+                    </div>
+                    <div className="p-4 border rounded-lg shadow-sm">
+                        <h3 className="text-lg font-semibold text-gray-700">Password</h3>
+                        <p className="text-gray-600">{user.password}</p>
                     </div>
                     <div className="p-4 border rounded-lg shadow-sm">
                         <h3 className="text-lg font-semibold text-gray-700">Date of Birth</h3>
