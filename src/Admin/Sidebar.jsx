@@ -16,6 +16,25 @@ const Sidebar = () => {
     setOpenSection(openSection === section ? null : section);
   };
 
+  const handleLogout = async () => {
+    try {
+      const response = await axios.post("https://library-backend-4335.onrender.com/api/admin/admin-logout", null, {
+        withCredentials: true, 
+      }
+    );
+
+      if (response.status === 200) {
+        alert("Logout successful!");
+        navigate("/admin-login");
+      } else {
+        alert("Failed to logout. Please try again.");
+      }
+    } catch (error) {
+      console.error("Logout error:", error);
+      alert("An error occurred during logout. Please try again.");
+    }
+  };
+
   return (
     <div className="relative h-screen">
       {/* Sidebar Toggle Button */}
