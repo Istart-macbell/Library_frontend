@@ -21,6 +21,10 @@ import UserTable from './User/Usertable';
 import LibrarySettings from './Admin/Setting';
 import StaffProfile from './Staff/StaffProfile';
 
+import AddBook from './Admin/Addbook';
+ 
+
+
 
 function App() {
   return (
@@ -39,6 +43,9 @@ function App() {
       <Route path="/add-staff" element={<Staffpage />} />
       <Route path="/staffs" element={<StaffTable />} />
       <Route path="/setting" element={<LibrarySettings/>} />
+      <Route path="/addbook" element={< AddBook/>} />
+
+
 
 
       
@@ -53,7 +60,7 @@ function App() {
         {/* Staff Section */}
         <Route path="/staff-login" element={<Login />} />
         <Route path="/staff-dashboard" element={<StaffDashboard />} />
-        <Route path="/staff-booktable" element={<BookTable />} />
+        <Route path="/booktable" element={<BookTable />} />
         <Route path="/staff-profile" element={<StaffProfile/>} />
 
         
