@@ -1,27 +1,27 @@
-// src/components/StaffProfile.js
-
-import React from 'react';
-
-const staffDetails = {
-    status: "active",
-    id: "6790e6ebeaaff4463a0fb813",
-    firstName: "John",
-    lastName: "Doe",
-    email: "john.doe@example.com",
-    phone: "1234567890",
-    position: "Manager",
-    department: "HR",
-    gender: "Male",
-    dateOfBirth: "1990-01-01T00:00:00.000Z",
-    joiningDate: "2025-01-22T00:00:00.000Z",
-    salary: 50000,
-    profilePicture: null,
-    qualifications: ["MBA"],
-    createdAt: "2025-01-22T12:39:07.517Z",
-    _v: 0
-};
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
 const StaffProfile = () => {
+    const [staffDetails, setStaffDetails] = useState(null);
+
+    useEffect(() => {
+        // Fetch the staff data when the component mounts
+        const fetchStaffDetails = async () => {
+            try {
+                const response = await axios.get('https://library-backend-4335.onrender.com/api/staff/staff-profile/6790e6ebeaaff4463a0fb813');
+                setStaffDetails(response.data.staffDetails); // Set the response data to state
+            } catch (error) {
+                console.error('Error fetching staff details:', error);
+            }
+        };
+
+        fetchStaffDetails();
+    }, []);
+
+    if (!staffDetails) {
+        return <div>Loading...</div>; // Display a loading message while data is being fetched
+    }
+
     return (
         <div
             className="flex items-center justify-center min-h-screen p-6"
@@ -40,7 +40,9 @@ const StaffProfile = () => {
                         {staffDetails.lastName[0]}
                     </div>
                     <div>
-                        <h2 className="text-3xl font-semibold text-gray-800">{staffDetails.firstName} {staffDetails.lastName}</h2>
+                        <h2 className="text-3xl font-semibold text-gray-800">
+                            {staffDetails.firstName} {staffDetails.lastName}
+                        </h2>
                         <p className="text-gray-600">Position: {staffDetails.position}</p>
                         <p className="text-green-500">{staffDetails.status}</p>
                     </div>
