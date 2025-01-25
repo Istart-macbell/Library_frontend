@@ -1,28 +1,29 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 const UserTable = () => {
-    const data = {
-        users: [
-            {
-                id: "67913edaf9485784e65b21ed",
-                fullName: "John Doe",
-                email: "john.doe@example.com",
-                phone: "1234567890",
-                dateOfBirth: "1990-01-01T00:00:00.000Z",
-                address: {},
-                joiningDate: "Tuesday, January 21, 2025"
-            },
-            // Add more user objects as needed
-        ]
-    };
+    // const data = {
+    //     users: [
+    //         {
+    //             id: "67913edaf9485784e65b21ed",
+    //             fullName: "John Doe",
+    //             email: "john.doe@example.com",
+    //             phone: "1234567890",
+    //             dateOfBirth: "1990-01-01T00:00:00.000Z",
+    //             address: {},
+    //             joiningDate: "Tuesday, January 21, 2025"
+    //         },
+    //         // Add more user objects as needed
+    //     ]
+    // };
+    const [data, setData] = useState(null);
 
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 5;
 
     // Pagination Logic
-    const totalPages = Math.ceil(data.users.length / itemsPerPage);
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const currentData = data.users.slice(startIndex, startIndex + itemsPerPage);
+    const totalPages = data && Math.ceil(data.users.length / itemsPerPage);
+    const startIndex = data &&(currentPage - 1) * itemsPerPage;
+    const currentData = data && data.users.slice(startIndex, startIndex + itemsPerPage);
 
     const goToNextPage = () => {
         if (currentPage < totalPages) {
@@ -35,6 +36,34 @@ const UserTable = () => {
             setCurrentPage(currentPage - 1);
         }
     };
+
+    // calling data when page mounts or loads
+    const [error, setError] = useState("");
+    const [loading, setLoading] = useState(true);
+    useEffect(() => {
+        const fetchUsers = async () => {
+          try {
+            const response = await fetch(
+              "https://library-backend-4335.onrender.com/api/admin/get-users"
+            );
+            if (!response.ok) {
+              throw new Error(`Error: ${response.status}`);
+            }
+            const apiData = await response.json();
+            setData(apiData);
+          } catch (err) {
+            setError(err.message);
+          } finally {
+            setLoading(false);
+          }
+        };
+    
+        fetchUsers();
+      }, [data]);
+
+      if(loading) return <h1 className='text-3xl text-center'>Loading...</h1>;  
+      if(error) return <h1 className='text-3xl text-center'>{error}</h1>;  
+      
 
     return (
         <div className="min-h-screen bg-gray-100 p-6">
@@ -55,7 +84,7 @@ const UserTable = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {currentData.map((user) => (
+                            {currentData?.map((user) => (
                                 <tr key={user.id} className="text-center">
                                     <td className="p-2 border border-gray-300">{user.id}</td>
                                     <td className="p-2 border border-gray-300">{user.fullName}</td>

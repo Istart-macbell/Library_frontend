@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 
 const StaffPage = () => {
-    const [formData, setFormData] = useState({
+  const [loading,setLoading]=useState(false);
+  const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
     email: "",
@@ -17,236 +18,269 @@ const StaffPage = () => {
     emergencyContact: "",
     profilePicture: null,
     qualifications: "",
-    });
+  });
 
-    const handleInputChange = (e) => {
+  
+  const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
-    };
-
-    const handleFileChange = (e) => {
+  };
+  
+  const handleFileChange = (e) => {
     setFormData({ ...formData, profilePicture: e.target.files[0] });
-    };
-
-    const handleSubmit = (e) => {
+  };
+  
+  const API_KEY = localStorage.getItem('token');
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form Submitted: ", formData);
-    // Add logic to submit the form (e.g., API call)
-    };
+    setLoading(true);
 
-    return (
+    const payload = new FormData();
+    for (const key in formData) {
+      payload.append(key, formData[key]);
+    }
+
+    try {
+      const response = await fetch("https://library-backend-4335.onrender.com/api/admin/add-staff", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${API_KEY}`,
+          "Content-Type": "application/json",
+        },
+        body: payload,
+      });
+      const result = await response.json();
+      console.log("Response: ", result);
+    } catch (error) {
+      console.error("Error submitting the form: ", error);
+    }
+    finally{
+      setLoading(false);
+    }
+  };
+
+  return (
     <div className="flex items-center justify-center min-h-screen mt-8 mb-4">
-        <div className="w-full max-w-4xl p-8 bg-white rounded-lg shadow-lg">
+      <div className="w-full max-w-4xl p-8 bg-white rounded-lg shadow-lg">
         <h1 className="mb-6 text-2xl font-bold text-center text-gray-700">
-             Staff Page
+          Staff Page
         </h1>
-        <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-6 md:grid-cols-2">
-          {/* First Name */}
-            <div>
-            <label className="block text-sm font-medium text-gray-600">First Name</label>
+        <form
+          onSubmit={handleSubmit}
+          className="grid grid-cols-1 gap-6 md:grid-cols-2"
+        >
+          <div>
+            <label className="block text-sm font-medium text-gray-600">
+              First Name
+            </label>
             <input
-                type="text"
-                name="firstName"
-                value={formData.firstName}
-                onChange={handleInputChange}
-                placeholder="Enter first name"
-                className="w-full px-4 py-2 mt-2 border rounded-lg focus:ring-2 focus:ring-blue-400"
+              type="text"
+              name="firstName"
+              value={formData.firstName}
+              onChange={handleInputChange}
+              placeholder="Enter first name"
+              className="w-full px-4 py-2 mt-2 border rounded-lg focus:ring-2 focus:ring-blue-400"
             />
-            </div>
+          </div>
 
-          {/* Last Name */}
-            <div>
-            <label className="block text-sm font-medium text-gray-600">Last Name</label>
+          <div>
+            <label className="block text-sm font-medium text-gray-600">
+              Last Name
+            </label>
             <input
-                type="text"
-                name="lastName"
-                value={formData.lastName}
-                onChange={handleInputChange}
-                placeholder="Enter last name"
-                className="w-full px-4 py-2 mt-2 border rounded-lg focus:ring-2 focus:ring-blue-400"
+              type="text"
+              name="lastName"
+              value={formData.lastName}
+              onChange={handleInputChange}
+              placeholder="Enter last name"
+              className="w-full px-4 py-2 mt-2 border rounded-lg focus:ring-2 focus:ring-blue-400"
             />
-            </div>
+          </div>
 
-          {/* Email */}
-            <div>
+          <div>
             <label className="block text-sm font-medium text-gray-600">Email</label>
             <input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleInputChange}
-                placeholder="Enter email"
-                className="w-full px-4 py-2 mt-2 border rounded-lg focus:ring-2 focus:ring-blue-400"
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleInputChange}
+              placeholder="Enter email"
+              className="w-full px-4 py-2 mt-2 border rounded-lg focus:ring-2 focus:ring-blue-400"
             />
-            </div>
+          </div>
 
-          {/* Password */}
-            <div>
-            <label className="block text-sm font-medium text-gray-600">Password</label>
+          <div>
+            <label className="block text-sm font-medium text-gray-600">
+              Password
+            </label>
             <input
-                type="password"
-                name="password"
-                value={formData.password}
-                onChange={handleInputChange}
-                placeholder="Enter password"
-                className="w-full px-4 py-2 mt-2 border rounded-lg focus:ring-2 focus:ring-blue-400"
+              type="password"
+              name="password"
+              value={formData.password}
+              onChange={handleInputChange}
+              placeholder="Enter password"
+              className="w-full px-4 py-2 mt-2 border rounded-lg focus:ring-2 focus:ring-blue-400"
             />
-            </div>
+          </div>
 
-          {/* Phone */}
-            <div>
+          <div>
             <label className="block text-sm font-medium text-gray-600">Phone</label>
             <input
-                type="tel"
-                name="phone"
-                value={formData.phone}
-                onChange={handleInputChange}
-                placeholder="Enter phone number"
-                className="w-full px-4 py-2 mt-2 border rounded-lg focus:ring-2 focus:ring-blue-400"
+              type="text"
+              name="phone"
+              value={formData.phone}
+              onChange={handleInputChange}
+              placeholder="Enter phone number"
+              className="w-full px-4 py-2 mt-2 border rounded-lg focus:ring-2 focus:ring-blue-400"
             />
-            </div>
+          </div>
 
-          {/* Position */}
-            <div>
-            <label className="block text-sm font-medium text-gray-600">Position</label>
+          <div>
+            <label className="block text-sm font-medium text-gray-600">
+              Position
+            </label>
             <input
-                type="text"
-                name="position"
-                value={formData.position}
-                onChange={handleInputChange}
-                placeholder="Enter position"
-                className="w-full px-4 py-2 mt-2 border rounded-lg focus:ring-2 focus:ring-blue-400"
+              type="text"
+              name="position"
+              value={formData.position}
+              onChange={handleInputChange}
+              placeholder="Enter position"
+              className="w-full px-4 py-2 mt-2 border rounded-lg focus:ring-2 focus:ring-blue-400"
             />
-            </div>
+          </div>
 
-          {/* Department */}
-            <div>
-            <label className="block text-sm font-medium text-gray-600">Department</label>
+          <div>
+            <label className="block text-sm font-medium text-gray-600">
+              Department
+            </label>
             <input
-                type="text"
-                name="department"
-                value={formData.department}
-                onChange={handleInputChange}
-                placeholder="Enter department"
-                className="w-full px-4 py-2 mt-2 border rounded-lg focus:ring-2 focus:ring-blue-400"
+              type="text"
+              name="department"
+              value={formData.department}
+              onChange={handleInputChange}
+              placeholder="Enter department"
+              className="w-full px-4 py-2 mt-2 border rounded-lg focus:ring-2 focus:ring-blue-400"
             />
-            </div>
+          </div>
 
-          {/* Gender */}
-            <div>
+          <div>
             <label className="block text-sm font-medium text-gray-600">Gender</label>
             <select
-            name="gender"
-            value={formData.gender}
-            onChange={handleInputChange}
-            className="w-full px-4 py-2 mt-2 border rounded-lg focus:ring-2 focus:ring-blue-400"
+              name="gender"
+              value={formData.gender}
+              onChange={handleInputChange}
+              className="w-full px-4 py-2 mt-2 border rounded-lg focus:ring-2 focus:ring-blue-400"
             >
-            <option value="">Select gender</option>
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-            <option value="other">Other</option>
+              <option value="">Select gender</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Other">Other</option>
             </select>
-        </div>
+          </div>
 
-          {/* Date of Birth */}
-        <div>
-            <label className="block text-sm font-medium text-gray-600">Date of Birth</label>
+          <div>
+            <label className="block text-sm font-medium text-gray-600">
+              Date of Birth
+            </label>
             <input
-            type="date"
-            name="dateOfBirth"
-            value={formData.dateOfBirth}
-            onChange={handleInputChange}
-            className="w-full px-4 py-2 mt-2 border rounded-lg focus:ring-2 focus:ring-blue-400"
+              type="date"
+              name="dateOfBirth"
+              value={formData.dateOfBirth}
+              onChange={handleInputChange}
+              className="w-full px-4 py-2 mt-2 border rounded-lg focus:ring-2 focus:ring-blue-400"
             />
-        </div>
+          </div>
 
-          {/* Address */}
-        <div className="md:col-span-2">
-            <label className="block text-sm font-medium text-gray-600">Address</label>
+          <div>
+            <label className="block text-sm font-medium text-gray-600">
+              Address
+            </label>
+            <textarea
+              name="address"
+              value={formData.address}
+              onChange={handleInputChange}
+              placeholder="Enter address"
+              className="w-full px-4 py-2 mt-2 border rounded-lg focus:ring-2 focus:ring-blue-400"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-600">
+              Joining Date
+            </label>
             <input
-            type="text"
-            name="address"
-            value={formData.address}
-            onChange={handleInputChange}
-            placeholder="Enter address"
-            className="w-full px-4 py-2 mt-2 border rounded-lg focus:ring-2 focus:ring-blue-400"
+              type="date"
+              name="joiningDate"
+              value={formData.joiningDate}
+              onChange={handleInputChange}
+              className="w-full px-4 py-2 mt-2 border rounded-lg focus:ring-2 focus:ring-blue-400"
             />
-        </div>
+          </div>
 
-          {/* Joining Date */}
-        <div>
-            <label className="block text-sm font-medium text-gray-600">Joining Date</label>
-            <input
-            type="date"
-            name="joiningDate"
-            value={formData.joiningDate}
-            onChange={handleInputChange}
-            className="w-full px-4 py-2 mt-2 border rounded-lg focus:ring-2 focus:ring-blue-400"
-            />
-        </div>
-
-          {/* Salary */}
-        <div>
+          <div>
             <label className="block text-sm font-medium text-gray-600">Salary</label>
             <input
-            type="number"
-            name="salary"
-            value={formData.salary}
-            onChange={handleInputChange}
-            placeholder="Enter salary"
-            className="w-full px-4 py-2 mt-2 border rounded-lg focus:ring-2 focus:ring-blue-400"
+              type="number"
+              name="salary"
+              value={formData.salary}
+              onChange={handleInputChange}
+              placeholder="Enter salary"
+              className="w-full px-4 py-2 mt-2 border rounded-lg focus:ring-2 focus:ring-blue-400"
             />
-        </div>
+          </div>
 
-          {/* Emergency Contact */}
-        <div>
-            <label className="block text-sm font-medium text-gray-600">Emergency Contact</label>
+          <div>
+            <label className="block text-sm font-medium text-gray-600">
+              Emergency Contact
+            </label>
             <input
-            type="tel"
-            name="emergencyContact"
-            value={formData.emergencyContact}
-            onChange={handleInputChange}
-            placeholder="Enter emergency contact"
-            className="w-full px-4 py-2 mt-2 border rounded-lg focus:ring-2 focus:ring-blue-400"
+              type="text"
+              name="emergencyContact"
+              value={formData.emergencyContact}
+              onChange={handleInputChange}
+              placeholder="Enter emergency contact"
+              className="w-full px-4 py-2 mt-2 border rounded-lg focus:ring-2 focus:ring-blue-400"
             />
-        </div>
+          </div>
 
-          {/* Profile Picture */}
-        <div>
-            <label className="block text-sm font-medium text-gray-600">Profile Picture</label>
+          <div>
+            <label className="block text-sm font-medium text-gray-600">
+              Profile Picture
+            </label>
             <input
-            type="file"
-            name="profilePicture"
-            onChange={handleFileChange}
-            className="w-full px-4 py-2 mt-2"
+              type="file"
+              name="profilePicture"
+              onChange={handleFileChange}
+              className="w-full px-4 py-2 mt-2 border rounded-lg focus:ring-2 focus:ring-blue-400"
             />
-        </div>
+          </div>
 
-          {/* Qualifications */}
-        <div className="md:col-span-2">
-            <label className="block text-sm font-medium text-gray-600">Qualifications</label>
+          <div>
+            <label className="block text-sm font-medium text-gray-600">
+              Qualifications
+            </label>
             <textarea
-            name="qualifications"
-            value={formData.qualifications}
-            onChange={handleInputChange}
-            placeholder="Enter qualifications"
-            className="w-full px-4 py-2 mt-2 border rounded-lg focus:ring-2 focus:ring-blue-400"
-            ></textarea>
-        </div>
+              name="qualifications"
+              value={formData.qualifications}
+              onChange={handleInputChange}
+              placeholder="Enter qualifications"
+              className="w-full px-4 py-2 mt-2 border rounded-lg focus:ring-2 focus:ring-blue-400"
+            />
+          </div>
 
-          {/* Submit Button */}
-        <div className="md:col-span-2">
+          <div className="md:col-span-2">
             <button
-            type="submit"
-            className="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
+              disabled={loading}
+              type="submit"
+              className="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
             >
-            Staff Page
+              {loading ? 'Loading...' :"Submit Staff Information"}
             </button>
-        </div>
+          </div>
         </form>
+      </div>
     </div>
-    </div>
-);
+  );
 };
 
 export default StaffPage;
