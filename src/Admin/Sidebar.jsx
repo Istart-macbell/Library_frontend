@@ -15,7 +15,7 @@ const Sidebar = () => {
     setOpenSection(openSection === section ? null : section);
   };
 
-  const handledLogout = async () => {
+  const handleLogout = async () => {
     try {
       const response = await axios.post("https://library-backend-4335.onrender.com/api/admin/admin-logout", null, {
         withCredentials: true, 
@@ -119,7 +119,7 @@ const Sidebar = () => {
 
           <li className="absolute bottom-4 flex items-center gap-2 px-4 py-2 hover:bg-gray-700 cursor-pointer">
             <span>🚪</span>
-            <span onClick={handledLogout}>Logout</span>
+            <span onClick={handleLogout}>Logout</span>
           </li>
         </ul>
       </div>
