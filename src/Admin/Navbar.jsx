@@ -6,7 +6,6 @@ const Navbar = () => {
 
   return (
     <nav className="flex justify-between items-center p-4 bg-gray-800 text-white">
-      <h1 className="text-lg font-bold">Admin</h1>
       <div className="space-x-4">
         <button
           className="bg-white text-purple-700 px-4 py-2 rounded hover:bg-purple-100 transition"

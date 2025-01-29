@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { FaUserTie, FaUserGraduate, FaBook, FaCog, FaDoorOpen, FaChalkboardTeacher } from "react-icons/fa";
+import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
 
 const Sidebar = () => {
   const navigate = useNavigate();
@@ -15,7 +17,8 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="relative">
+    <div className="relative h-screen">
+      {/* Sidebar Toggle Button */}
       <button
         className="fixed top-4 right-4 z-50 flex items-center justify-center w-12 h-12 bg-gray-800 text-white rounded-full shadow-lg lg:hidden"
         onClick={toggleSidebar}
@@ -23,82 +26,139 @@ const Sidebar = () => {
         <span className="text-2xl">☰</span>
       </button>
 
+      {/* Sidebar */}
       <div
         className={`fixed top-0 left-0 h-full w-64 bg-gray-900 text-white transform ${
           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
         } transition-transform duration-300 lg:translate-x-0 lg:static lg:w-64`}
       >
-        <div className="p-6">
-          <h2 className="text-xl font-bold"
-          onClick={()=>navigate('/')}>Dashboard</h2>
+        {/* Sidebar Header */}
+        <div className="p-6 bg-gray-800 border-b border-gray-700">
+          <h2
+            className="text-2xl font-bold cursor-pointer hover:text-gray-400"
+            onClick={() => navigate("/")}
+          >
+            Dashboard
+          </h2>
         </div>
-        <ul className="space-y-4">
+
+        {/* Sidebar Menu */}
+        <ul className="space-y-4 py-6">
+          {/* Administration Section */}
           <li>
             <div
               className="flex items-center gap-2 px-4 py-2 hover:bg-gray-700 cursor-pointer"
               onClick={() => toggleSection("administration")}
             >
-              <span>👩‍💼</span>
+              <FaUserTie />
               <span>Administration</span>
-              <span className="ml-auto">{openSection === "administration" ? "▲" : "▼"}</span>
             </div>
-            {openSection === "administration" && (
+          </li>
+
+          {/* Staff Section */}
+          <li>
+            <div
+              className="flex items-center gap-2 px-4 py-2 hover:bg-gray-700 cursor-pointer"
+              onClick={() => toggleSection("staff")}
+            >
+              <FaChalkboardTeacher />
+              <span>Staff</span>
+              {openSection === "staff" ? <IoMdArrowDropup className="ml-auto" /> : <IoMdArrowDropdown className="ml-auto" />}
+            </div>
+            {openSection === "staff" && (
               <ul className="pl-8 space-y-2">
-                <li className="hover:text-gray-400"
-                onClick={()=>navigate('/allstaff')}>All Staff</li>
-                <li className="hover:text-gray-400"
-                onClick={()=>navigate('/addstaff')}>Add Staff</li>
+                <li
+                  className="hover:text-gray-400 cursor-pointer"
+                  onClick={() => navigate("/staffs")}
+                >
+                  All Staff
+                </li>
+                <li
+                  className="hover:text-gray-400 cursor-pointer"
+                  onClick={() => navigate("/add-staff")}
+                >
+                  Add Staff
+                </li>
               </ul>
             )}
           </li>
 
+          {/* Student Section */}
           <li>
             <div
               className="flex items-center gap-2 px-4 py-2 hover:bg-gray-700 cursor-pointer"
               onClick={() => toggleSection("student")}
             >
-              <span>🎓</span>
+              <FaUserGraduate />
               <span>Student</span>
-              <span className="ml-auto">{openSection === "student" ? "▲" : "▼"}</span>
+              {openSection === "student" ? <IoMdArrowDropup className="ml-auto" /> : <IoMdArrowDropdown className="ml-auto" />}
             </div>
             {openSection === "student" && (
               <ul className="pl-8 space-y-2">
-                <li className="hover:text-gray-400"
-                onClick={()=>navigate('/allstudent')}>All Students</li>
-                <li className="hover:text-gray-400"
-                onClick={()=>navigate('/addstudent')}>Add Student</li>
-                <li className="hover:text-gray-400"
-                onClick={()=>navigate('/fee')}>Fee</li>
+                <li
+                  className="hover:text-gray-400 cursor-pointer"
+                  onClick={() => navigate("/user-table")}
+                >
+                  All Students
+                </li>
+                <li
+                  className="hover:text-gray-400 cursor-pointer"
+                  onClick={() => navigate("/add-user")}
+                >
+                  Add Student
+                </li>
+                <li
+                  className="hover:text-gray-400 cursor-pointer"
+                  onClick={() => navigate("/fee")}
+                >
+                  Fee
+                </li>
               </ul>
             )}
           </li>
 
+          {/* Books Section */}
           <li>
             <div
               className="flex items-center gap-2 px-4 py-2 hover:bg-gray-700 cursor-pointer"
               onClick={() => toggleSection("book")}
             >
-              <span>📚</span>
+              <FaBook />
               <span>Books</span>
-              <span className="ml-auto">{openSection === "book" ? "▲" : "▼"}</span>
+              {openSection === "book" ? <IoMdArrowDropup className="ml-auto" /> : <IoMdArrowDropdown className="ml-auto" />}
             </div>
             {openSection === "book" && (
               <ul className="pl-8 space-y-2">
-                <li className="hover:text-gray-400"
-                onClick={()=>navigate('/allbook')}>All Books</li>
-                <li className="hover:text-gray-400"
-                onClick={()=>navigate('/addbook')}>Add Book</li>
+                <li
+                  className="hover:text-gray-400 cursor-pointer"
+                  onClick={() => navigate("/booktable")}
+                >
+                  All Books
+                </li>
+                <li
+                  className="hover:text-gray-400 cursor-pointer"
+                  onClick={() => navigate("/addbook")}
+                >
+                  Add Book
+                </li>
               </ul>
             )}
           </li>
 
-          <li className="flex items-center gap-2 px-4 py-2 hover:bg-gray-700 cursor-pointer">
-            <span>⚙️</span>
-            <span onClick={()=>navigate('/setting')}>Settings</span>
+          {/* Settings */}
+          <li
+            className="flex items-center gap-2 px-4 py-2 hover:bg-gray-700 cursor-pointer"
+            onClick={() => navigate("/setting")}
+          >
+            <FaCog />
+            <span>Settings</span>
           </li>
 
-          <li className="absolute bottom-4 flex items-center gap-2 px-4 py-2 hover:bg-gray-700 cursor-pointer">
-            <span>🚪</span>
+          {/* Logout */}
+          <li
+            className="absolute bottom-4 flex items-center gap-2 px-4 py-2 hover:bg-gray-700 cursor-pointer"
+          >
+            <FaDoorOpen />
             <span>Logout</span>
           </li>
         </ul>

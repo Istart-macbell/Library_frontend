@@ -34,10 +34,10 @@ function App() {
         {/* Define routes for each component */}
         <Route path="/signup" element={<Signup />} />
         <Route path="/admin-login" element={<AdminLogin />} />
-        <Route path="/" element={<Admin/>}> </Route>
-      <Route path="/dashboardB" element={<DashboardBlock/>}> </Route>
-      <Route path="/navbar" element={<Navbar/>}> </Route>
-      <Route path="/sidebar" element={<Sidebar/>}> </Route>
+        <Route path="/" element={<Admin/>} />
+      <Route path="/dashboardB" element={<DashboardBlock/>} />
+      <Route path="/navbar" element={<Navbar/>} />
+      <Route path="/sidebar" element={<Sidebar/>}/>
       <Route path="/add-user" element={<CreateUser />} />
       <Route path="/add-book" element={<AddBookPage />} />
       <Route path="/add-staff" element={<Staffpage />} />

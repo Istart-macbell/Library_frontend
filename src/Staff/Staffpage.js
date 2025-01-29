@@ -1,7 +1,8 @@
 import React, { useState } from "react";
+import Sidebar from "../Admin/Sidebar"; // Make sure Sidebar is styled properly
 
 const StaffPage = () => {
-  const [loading,setLoading]=useState(false);
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -20,17 +21,16 @@ const StaffPage = () => {
     qualifications: "",
   });
 
-  
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
-  
+
   const handleFileChange = (e) => {
     setFormData({ ...formData, profilePicture: e.target.files[0] });
   };
-  
-  const API_KEY = localStorage.getItem('token');
+
+  const API_KEY = localStorage.getItem("token");
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -41,27 +41,35 @@ const StaffPage = () => {
     }
 
     try {
-      const response = await fetch("https://library-backend-4335.onrender.com/api/admin/add-staff", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${API_KEY}`,
-          "Content-Type": "application/json",
-        },
-        body: payload,
-      });
+      const response = await fetch(
+        "https://library-backend-4335.onrender.com/api/admin/add-staff",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${API_KEY}`,
+            "Content-Type": "application/json",
+          },
+          body: payload,
+        }
+      );
       const result = await response.json();
       console.log("Response: ", result);
     } catch (error) {
       console.error("Error submitting the form: ", error);
-    }
-    finally{
+    } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen mt-8 mb-4">
-      <div className="w-full max-w-4xl p-8 bg-white rounded-lg shadow-lg">
+    <div className="flex min-h-screen">
+      {/* Sidebar */}
+      <div className="sidebar w-1/4 sticky top-0 h-screen">
+        <Sidebar /> {/* Sidebar stays fixed on the left side */}
+      </div>
+
+      {/* Main Content */}
+      <div className="w-3/4 p-8 overflow-y-auto mr-8">
         <h1 className="mb-6 text-2xl font-bold text-center text-gray-700">
           Staff Page
         </h1>
@@ -69,6 +77,7 @@ const StaffPage = () => {
           onSubmit={handleSubmit}
           className="grid grid-cols-1 gap-6 md:grid-cols-2"
         >
+          {/* Form Inputs */}
           <div>
             <label className="block text-sm font-medium text-gray-600">
               First Name
@@ -274,7 +283,7 @@ const StaffPage = () => {
               type="submit"
               className="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
             >
-              {loading ? 'Loading...' :"Submit Staff Information"}
+              {loading ? "Loading..." : "Submit Staff Information"}
             </button>
           </div>
         </form>
