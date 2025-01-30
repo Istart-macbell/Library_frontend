@@ -21,6 +21,7 @@ import UserTable from './User/Usertable';
 import AddBook from './Admin/Addbook';
 import LibrarySettings from './Admin/Setting';
 import AllBooks from './Admin/AllBooks';
+import StaffProfile from './Staff/StaffProfile';
 
 
 function App() {
