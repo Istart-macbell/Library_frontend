@@ -22,6 +22,9 @@ import AddBook from './Admin/Addbook';
 import LibrarySettings from './Admin/Setting';
 import AllBooks from './Admin/AllBooks';
 import StaffProfile from './Staff/StaffProfile';
+import AdminStaffSalary from './Admin/Stafsalary';
+import MyFees from './User/Myfees';
+ 
 
 
 function App() {
@@ -43,6 +46,9 @@ function App() {
       <Route path="/staffs" element={<StaffTable />} />
       <Route path="/setting" element={<LibrarySettings/>} />
       <Route path="/addbook" element={< AddBook/>} />
+      <Route path="/staffsalary" element={< AdminStaffSalary/>} />
+      <Route path="/myfees" element={< MyFees/>} />
+
 
 
 
