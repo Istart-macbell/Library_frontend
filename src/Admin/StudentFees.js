@@ -1,28 +1,31 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-
 const StudentFees = () => {
   const [fees, setFees] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  console.log(fees)
+  console.log("fees", fees);
 
   useEffect(() => {
-    axios
-      .get("https://library-backend-4335.onrender.com/api/admin/student-fees")
-      .then((response) => {
-        if (response.data && Array.isArray(response.data)) {
-          setFees(response.data);
-          console.log(response)
+    const fetchFees = async () => {
+      try {
+        const response = await axios.get(
+          "https://library-backend-4335.onrender.com/api/admin/student-fees"
+        );
+
+        if (response.data && Array.isArray(response.data.fees)) {
+          setFees(response.data.fees);
         } else {
-          setError("Invalid data format received");
+          throw new Error("Invalid data format received");
         }
+      } catch (err) {
+        setError(err.message || "Failed to load fees data");
+      } finally {
         setLoading(false);
-      })
-      .catch((err) => {
-        setError("Failed to load fees data");
-        setLoading(false);
-      });
+      }
+    };
+
+    fetchFees();
   }, []);
 
   if (loading) {
@@ -45,7 +48,7 @@ const StudentFees = () => {
     <div
       className="flex flex-col items-center justify-center min-h-screen p-6"
       style={{
-        backgroundImage: `url('https://source.unsplash.com/1600x900/?finance,education')`,
+        // backgroundImage: url('https://source.unsplash.com/1600x900/?finance,education'),
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
@@ -60,26 +63,24 @@ const StudentFees = () => {
               <tr>
                 <th className="p-3 border">ID</th>
                 <th className="p-3 border">Name</th>
-                <th className="p-3 border">Class</th>
                 <th className="p-3 border">Amount</th>
-                <th className="p-3 border">Status</th>
+                <th className="p-3 border">Payment Method</th>
+                <th className="p-3 border">Remarks</th>
               </tr>
             </thead>
             <tbody>
               {fees.length > 0 ? (
                 fees.map((fee, index) => (
                   <tr key={index} className="hover:bg-gray-100">
-                    <td className="p-3 border">{fee.id || "N/A"}</td>
-                    <td className="p-3 border">{fee.name || "N/A"}</td>
-                    <td className="p-3 border">{fee.class || "N/A"}</td>
-                    <td className="p-3 border">${fee.amount || "N/A"}</td>
-                    <td
-                      className={`p-3 border text-center font-semibold ${
-                        fee.status === "Paid" ? "text-green-600" : "text-red-600"
-                      }`}
-                    >
-                      {fee.status || "N/A"}
+                    <td className="p-3 border">{fee._id || "N/A"}</td>
+                    <td className="p-3 border">
+                      {fee.userId
+                        ?`${fee.userId.firstName} ${fee.userId.lastName}`
+                        : "N/A"}
                     </td>
+                    <td className="p-3 border">{fee.amount || "N/A"}</td>
+                    <td className="p-3 border">{fee.paymentMethod || "N/A"}</td>
+                    <td className="p-3 border">{fee.remarks || "N/A"}</td>
                   </tr>
                 ))
               ) : (
@@ -96,5 +97,7 @@ const StudentFees = () => {
     </div>
   );
 };
+
+
 
 export default StudentFees;
