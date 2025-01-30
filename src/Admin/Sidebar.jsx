@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaUserTie, FaUserGraduate, FaBook, FaCog, FaDoorOpen, FaChalkboardTeacher } from "react-icons/fa";
 import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
+import axios from "axios";
 
 const Sidebar = () => {
   const navigate = useNavigate();
@@ -178,7 +179,7 @@ const Sidebar = () => {
             className="absolute bottom-4 flex items-center gap-2 px-4 py-2 hover:bg-gray-700 cursor-pointer"
           >
             <FaDoorOpen />
-            <span>Logout</span>
+            <span onClick={handledLogout}>Logout</span>
           </li>
         </ul>
       </div>
