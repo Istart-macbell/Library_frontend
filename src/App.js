@@ -24,7 +24,7 @@ import UserLoginPage from './User/UserLogin';
 import UserProfile from './User/Userprofile';
 import UserSidebar from './User/Usersidebar';
 import UserTable from './User/Usertable';
- 
+ import SalaryPage from './Staff/MySalary';
 
 
 
@@ -69,6 +69,7 @@ function App() {
         <Route path="/staff-dashboard" element={<StaffDashboard />} />
         <Route path="/booktable" element={<BookTable />} />
         <Route path="/staff-profile" element={<StaffProfile/>} />
+        <Route path="/my-salary" element={<SalaryPage/>} />
 
 
         
