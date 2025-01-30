@@ -1,4 +1,5 @@
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import AddBook from './Admin/Addbook';
 import Admin from './Admin/Admin';
 import AdminLogin from './Admin/AdminLogin';
 import AddBookPage from './Admin/Createbook';
@@ -8,6 +9,8 @@ import Navbar from './Admin/Navbar';
 import LibrarySettings from './Admin/Setting';
 import Sidebar from './Admin/Sidebar';
 import Signup from './Admin/Signup';
+import AdminStaffSalary from './Admin/Stafsalary';
+import StudentFees from './Admin/StudentFees';
 import './App.css';
 import BookTable from './Staff/Booktable';
 import Login from './Staff/Login';
@@ -16,14 +19,11 @@ import Staffpage from './Staff/Staffpage';
 import StaffProfile from './Staff/StaffProfile';
 import StaffTable from './Staff/StaffTable';
 import UserDashboard from './User/Dashboard';
+import MyFees from './User/Myfees';
 import UserLoginPage from './User/UserLogin';
 import UserProfile from './User/Userprofile';
 import UserSidebar from './User/Usersidebar';
 import UserTable from './User/Usertable';
-
-import AddBook from './Admin/Addbook';
-import AdminStaffSalary from './Admin/Stafsalary';
-import MyFees from './User/Myfees';
  
 
 
@@ -48,6 +48,8 @@ function App() {
       <Route path="/addbook" element={< AddBook/>} />
       <Route path="/staffsalary" element={< AdminStaffSalary/>} />
       <Route path="/myfees" element={< MyFees/>} />
+      <Route path="/studentfees" element={<StudentFees/>} />
+      
 
 
 
