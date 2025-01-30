@@ -79,6 +79,12 @@ const Sidebar = () => {
                 >
                   Add Staff
                 </li>
+                <li
+                  className="hover:text-gray-400 cursor-pointer"
+                  onClick={() => navigate("/staffsalary")}
+                >
+                  Staff salary
+                </li>
               </ul>
             )}
           </li>
