@@ -46,6 +46,7 @@ const StaffTable = () => {
   };
 
   const [formData, setFormData] = useState({
+    staffId:"",
     amount: "",
     paymentMethod: "",
     remarks: "",
@@ -57,14 +58,45 @@ const StaffTable = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleModal=(id)=>{
+    // for setting id 
+    setIsModalOpen(true);
+    setFormData({...formData, staffId:id });
+  }
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const finalData = {
       ...formData,
       date: formData.date || new Date().toISOString().substring(0, 10),
     };
-    console.log("Form Submitted:", finalData);
+    // console.log(finalData);
+    
+  
+    try {
+      const response = await fetch(`https://library-backend-4335.onrender.com/api/admin/add-salary/${formData.staffId}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(finalData),
+      });
+  
+      const result = await response.json();
+  
+      if (response.ok) {
+        alert("Salary added successfully");
+        // console.log("Salary added successfully:", result);
+      } else {
+        alert("Failed to add Salary");
+        // console.error("Failed to add salary:", result.message);
+      }
+    } catch (error) {
+      alert("Error submitting salary data");
+      // console.error("Error submitting salary data:", error);
+    }
   };
+  
 
   return (
     <div className="flex min-h-screen">
@@ -112,7 +144,7 @@ const StaffTable = () => {
                   </thead>
                   <tbody>
                     {currentData.map((staffMember) => (
-                      <tr key={staffMember.id} className="text-center">
+                      <tr key={staffMember._id} className="text-center">
                         <td className="px-4 py-2 border-b border-gray-300">
                           {staffMember.id}
                         </td>
@@ -154,7 +186,7 @@ const StaffTable = () => {
                         </td>
                         <td className="px-4 py-2 border-b border-gray-300">
                           <button
-                            onClick={() => setIsModalOpen(true)}
+                            onClick={() => handleModal(staffMember._id)}
                             className="px-2 py-1 text-white bg-green-500 rounded hover:scale-105 duration-75 hover:bg-green-600"
                           >
                             Add Salary
@@ -198,10 +230,9 @@ const StaffTable = () => {
                           required
                         >
                           <option value="">Select Payment Method</option>
-                          <option value="Credit Card">Credit Card</option>
-                          <option value="Debit Card">Debit Card</option>
-                          <option value="PayPal">PayPal</option>
                           <option value="Cash">Cash</option>
+                          <option value="Bank Transfer">Bank Transfer</option>
+                          <option value="Cheque">Cheque</option>
                         </select>
                       </div>
                       <div className="mb-4">
