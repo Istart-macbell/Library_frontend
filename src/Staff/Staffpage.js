@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import Sidebar from "../Admin/Sidebar"; // Make sure Sidebar is styled properly
+import { FiMenu } from "react-icons/fi";
+import Sidebar from "../Admin/Sidebar";
 
 const StaffPage = () => {
   const [loading, setLoading] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -47,7 +49,6 @@ const StaffPage = () => {
           method: "POST",
           headers: {
             Authorization: `Bearer ${API_KEY}`,
-            "Content-Type": "application/json",
           },
           body: payload,
         }
@@ -63,45 +64,41 @@ const StaffPage = () => {
 
   return (
     <div className="flex min-h-screen">
-      {/* Sidebar */}
-      <div className="sidebar w-1/4 sticky top-0 h-screen">
-        <Sidebar /> {/* Sidebar stays fixed on the left side */}
+      {/* Sidebar for large screens */}
+      <div className={`fixed inset-y-0 left-0 z-50 w-64 bg-white shadow-lg transform ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0 transition-transform md:w-1/4 md:relative md:flex`}>
+        <Sidebar />
       </div>
 
+      {/* Sidebar Toggle Button */}
+      <button
+        className="absolute z-50 p-2 text-2xl bg-white rounded-full shadow-lg top-4 left-4 md:hidden"
+        onClick={() => setSidebarOpen(!sidebarOpen)}
+      >
+        <FiMenu />
+      </button>
+
       {/* Main Content */}
-      <div className="w-3/4 p-8 overflow-y-auto mr-8">
-        <h1 className="mb-6 text-2xl font-bold text-center text-gray-700">
-          Staff Page
-        </h1>
-        <form
-          onSubmit={handleSubmit}
-          className="grid grid-cols-1 gap-6 md:grid-cols-2"
-        >
-          {/* Form Inputs */}
+      <div className="w-full p-8 ml-0 transition-all duration-300 md:w-3/4 md:ml-64">
+        <h1 className="mb-6 text-2xl font-bold text-center text-gray-700">Staff Page</h1>
+        <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-6 md:grid-cols-2">
           <div>
-            <label className="block text-sm font-medium text-gray-600">
-              First Name
-            </label>
+            <label className="block text-sm font-medium text-gray-600">First Name</label>
             <input
               type="text"
               name="firstName"
               value={formData.firstName}
               onChange={handleInputChange}
-              placeholder="Enter first name"
               className="w-full px-4 py-2 mt-2 border rounded-lg focus:ring-2 focus:ring-blue-400"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-600">
-              Last Name
-            </label>
+            <label className="block text-sm font-medium text-gray-600">Last Name</label>
             <input
               type="text"
               name="lastName"
               value={formData.lastName}
               onChange={handleInputChange}
-              placeholder="Enter last name"
               className="w-full px-4 py-2 mt-2 border rounded-lg focus:ring-2 focus:ring-blue-400"
             />
           </div>
@@ -113,166 +110,17 @@ const StaffPage = () => {
               name="email"
               value={formData.email}
               onChange={handleInputChange}
-              placeholder="Enter email"
               className="w-full px-4 py-2 mt-2 border rounded-lg focus:ring-2 focus:ring-blue-400"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-600">
-              Password
-            </label>
+            <label className="block text-sm font-medium text-gray-600">Password</label>
             <input
               type="password"
               name="password"
               value={formData.password}
               onChange={handleInputChange}
-              placeholder="Enter password"
-              className="w-full px-4 py-2 mt-2 border rounded-lg focus:ring-2 focus:ring-blue-400"
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-600">Phone</label>
-            <input
-              type="text"
-              name="phone"
-              value={formData.phone}
-              onChange={handleInputChange}
-              placeholder="Enter phone number"
-              className="w-full px-4 py-2 mt-2 border rounded-lg focus:ring-2 focus:ring-blue-400"
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-600">
-              Position
-            </label>
-            <input
-              type="text"
-              name="position"
-              value={formData.position}
-              onChange={handleInputChange}
-              placeholder="Enter position"
-              className="w-full px-4 py-2 mt-2 border rounded-lg focus:ring-2 focus:ring-blue-400"
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-600">
-              Department
-            </label>
-            <input
-              type="text"
-              name="department"
-              value={formData.department}
-              onChange={handleInputChange}
-              placeholder="Enter department"
-              className="w-full px-4 py-2 mt-2 border rounded-lg focus:ring-2 focus:ring-blue-400"
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-600">Gender</label>
-            <select
-              name="gender"
-              value={formData.gender}
-              onChange={handleInputChange}
-              className="w-full px-4 py-2 mt-2 border rounded-lg focus:ring-2 focus:ring-blue-400"
-            >
-              <option value="">Select gender</option>
-              <option value="Male">Male</option>
-              <option value="Female">Female</option>
-              <option value="Other">Other</option>
-            </select>
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-600">
-              Date of Birth
-            </label>
-            <input
-              type="date"
-              name="dateOfBirth"
-              value={formData.dateOfBirth}
-              onChange={handleInputChange}
-              className="w-full px-4 py-2 mt-2 border rounded-lg focus:ring-2 focus:ring-blue-400"
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-600">
-              Address
-            </label>
-            <textarea
-              name="address"
-              value={formData.address}
-              onChange={handleInputChange}
-              placeholder="Enter address"
-              className="w-full px-4 py-2 mt-2 border rounded-lg focus:ring-2 focus:ring-blue-400"
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-600">
-              Joining Date
-            </label>
-            <input
-              type="date"
-              name="joiningDate"
-              value={formData.joiningDate}
-              onChange={handleInputChange}
-              className="w-full px-4 py-2 mt-2 border rounded-lg focus:ring-2 focus:ring-blue-400"
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-600">Salary</label>
-            <input
-              type="number"
-              name="salary"
-              value={formData.salary}
-              onChange={handleInputChange}
-              placeholder="Enter salary"
-              className="w-full px-4 py-2 mt-2 border rounded-lg focus:ring-2 focus:ring-blue-400"
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-600">
-              Emergency Contact
-            </label>
-            <input
-              type="text"
-              name="emergencyContact"
-              value={formData.emergencyContact}
-              onChange={handleInputChange}
-              placeholder="Enter emergency contact"
-              className="w-full px-4 py-2 mt-2 border rounded-lg focus:ring-2 focus:ring-blue-400"
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-600">
-              Profile Picture
-            </label>
-            <input
-              type="file"
-              name="profilePicture"
-              onChange={handleFileChange}
-              className="w-full px-4 py-2 mt-2 border rounded-lg focus:ring-2 focus:ring-blue-400"
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-600">
-              Qualifications
-            </label>
-            <textarea
-              name="qualifications"
-              value={formData.qualifications}
-              onChange={handleInputChange}
-              placeholder="Enter qualifications"
               className="w-full px-4 py-2 mt-2 border rounded-lg focus:ring-2 focus:ring-blue-400"
             />
           </div>

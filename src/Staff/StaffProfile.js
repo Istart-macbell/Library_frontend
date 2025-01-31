@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-
+import React, { useEffect, useState } from 'react';
 const StaffProfile = () => {
     const [staffDetails, setStaffDetails] = useState(null);
 
@@ -35,7 +34,7 @@ const StaffProfile = () => {
             <div className="w-full max-w-4xl p-8 bg-white rounded-lg shadow-xl">
                 {/* Profile Header */}
                 <div className="flex items-center mb-8 space-x-6">
-                    <div className="w-24 h-24 flex items-center justify-center text-3xl font-bold text-white rounded-full shadow-md bg-gradient-to-br from-blue-500 to-purple-600">
+                    <div className="flex items-center justify-center w-24 h-24 text-3xl font-bold text-white rounded-full shadow-md bg-gradient-to-br from-blue-500 to-purple-600">
                         {staffDetails.firstName[0]}
                         {staffDetails.lastName[0]}
                     </div>
@@ -72,7 +71,7 @@ const StaffProfile = () => {
                     </div>
                     <div className="p-4 border rounded-lg shadow-sm">
                         <h3 className="text-lg font-semibold text-gray-700">Qualifications</h3>
-                        <ul className="list-disc pl-5 space-y-1">
+                        <ul className="pl-5 space-y-1 list-disc">
                             {staffDetails.qualifications.map((qualification, index) => (
                                 <li key={index}>{qualification}</li>
                             ))}
