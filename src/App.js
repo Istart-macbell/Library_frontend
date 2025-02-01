@@ -1,4 +1,5 @@
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import AddBook from './Admin/Addbook';
 import Admin from './Admin/Admin';
 import AdminLogin from './Admin/AdminLogin';
 import AddBookPage from './Admin/Createbook';
@@ -7,6 +8,8 @@ import DashboardBlock from './Admin/DashboardBlock';
 import Navbar from './Admin/Navbar';
 import Sidebar from './Admin/Sidebar';
 import Signup from './Admin/Signup';
+import AdminStaffSalary from './Admin/Stafsalary';
+import StudentFees from './Admin/StudentFees';
 import './App.css';
 import BookTable from './Staff/Booktable';
 import Login from './Staff/Login';
@@ -14,6 +17,7 @@ import StaffDashboard from './Staff/StaffDashboard';
 import Staffpage from './Staff/Staffpage';
 import StaffTable from './Staff/StaffTable';
 import UserDashboard from './User/Dashboard';
+import MyFees from './User/Myfees';
 import UserLoginPage from './User/UserLogin';
 import UserProfile from './User/Userprofile';
 import UserSidebar from './User/Usersidebar';
@@ -24,7 +28,7 @@ import AllBooks from './Admin/AllBooks';
 import StaffProfile from './Staff/StaffProfile';
 import AdminStaffSalary from './Admin/Stafsalary';
 import MyFees from './User/Myfees';
- 
+ import SalaryPage from './Staff/MySalary';
 
 
 function App() {
@@ -48,6 +52,8 @@ function App() {
       <Route path="/addbook" element={< AddBook/>} />
       <Route path="/staffsalary" element={< AdminStaffSalary/>} />
       <Route path="/myfees" element={< MyFees/>} />
+      <Route path="/studentfees" element={<StudentFees/>} />
+      
 
 
 
@@ -67,6 +73,7 @@ function App() {
         <Route path="/staff-dashboard" element={<StaffDashboard />} />
         <Route path="/booktable" element={<BookTable />} />
         <Route path="/staff-profile" element={<StaffProfile/>} />
+        <Route path="/my-salary" element={<SalaryPage/>} />
 
 
         
