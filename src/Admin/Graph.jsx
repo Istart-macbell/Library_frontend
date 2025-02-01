@@ -20,6 +20,7 @@ const Graph = () => {
 
   const options = {
     responsive: true,
+    maintainAspectRatio: false,
     plugins: {
       legend: {
         position: "top",
@@ -47,7 +48,7 @@ const Graph = () => {
   };
 
   return (
-    <div className="w-full sm:w-3/4 lg:w-200 mx-auto p-4">
+    <div className="w-full h-64 sm:h-80 lg:h-[400px] xl:h-[500px] p-4">
       <Bar data={data} options={options} />
     </div>
   );

@@ -65,17 +65,7 @@ const StaffPage = () => {
   return (
     <div className="flex min-h-screen">
       {/* Sidebar for large screens */}
-      <div className={`fixed inset-y-0 left-0 z-50 w-64 bg-white shadow-lg transform ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0 transition-transform md:w-1/4 md:relative md:flex`}>
         <Sidebar />
-      </div>
-
-      {/* Sidebar Toggle Button */}
-      <button
-        className="absolute z-50 p-2 text-2xl bg-white rounded-full shadow-lg top-4 left-4 md:hidden"
-        onClick={() => setSidebarOpen(!sidebarOpen)}
-      >
-        <FiMenu />
-      </button>
 
       {/* Main Content */}
       <div className="w-full p-8 ml-0 transition-all duration-300 md:w-3/4 md:ml-64">

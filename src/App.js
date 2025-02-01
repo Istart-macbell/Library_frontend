@@ -22,12 +22,9 @@ import UserLoginPage from './User/UserLogin';
 import UserProfile from './User/Userprofile';
 import UserSidebar from './User/Usersidebar';
 import UserTable from './User/Usertable';
-import AddBook from './Admin/Addbook';
 import LibrarySettings from './Admin/Setting';
 import AllBooks from './Admin/AllBooks';
 import StaffProfile from './Staff/StaffProfile';
-import AdminStaffSalary from './Admin/Stafsalary';
-import MyFees from './User/Myfees';
  import SalaryPage from './Staff/MySalary';
 
 

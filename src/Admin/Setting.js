@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Sidebar from "./Sidebar";
 
 const LibrarySettings = () => {
   const [formData, setFormData] = useState({
@@ -29,6 +30,7 @@ const LibrarySettings = () => {
 
   return (
     <div className="flex items-center justify-center min-h-screen p-8 bg-gray-100">
+      <Sidebar/>
       <form
         onSubmit={handleSubmit}
         className="w-full p-10 bg-white rounded-lg shadow-lg max-w-5xl"

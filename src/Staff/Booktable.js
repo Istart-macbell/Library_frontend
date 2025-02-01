@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Sidebar from "../Admin/Sidebar";
+
 const BooksTable = () => {
   const [books, setBooks] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -10,22 +11,20 @@ const BooksTable = () => {
   const rowsPerPage = 5;
 
   useEffect(() => {
-    // Fetch data from API
     axios
       .get("https://library-backend-4335.onrender.com/api/admin/getbooks")
       .then((response) => {
         if (response.data.message === "Books retrieved successfully") {
-          setBooks(response.data.books); // Set the books data from API
+          setBooks(response.data.books);
         }
         setLoading(false);
       })
-      .catch((err) => {
+      .catch(() => {
         setError("Failed to load books");
         setLoading(false);
       });
   }, []);
 
-  // Pagination calculations
   const totalPages = Math.ceil(books.length / rowsPerPage);
   const startIndex = (currentPage - 1) * rowsPerPage;
   const endIndex = startIndex + rowsPerPage;
@@ -40,69 +39,44 @@ const BooksTable = () => {
   };
 
   return (
-    <div className="flex">
+    <div className="flex min-h-screen">
       {/* Sidebar */}
-      <div className="w-64">
-        <Sidebar />
-      </div>
+      <Sidebar />
 
       {/* Main Content */}
-      <div className="flex-grow flex flex-col items-center justify-center min-h-screen p-4 bg-gray-100">
-        <div className="w-full p-6 bg-white rounded-lg shadow-lg max-w-7xl">
-          <h1 className="mb-4 text-2xl font-bold text-center text-gray-700">
+      <div className="flex-grow p-4 bg-gray-100 overflow-x-hidden">
+        <div className="w-full p-4 sm:p-6 bg-white rounded-lg shadow-lg">
+          <h1 className="mb-4 text-xl sm:text-2xl font-bold text-center text-gray-700">
             Books Table
           </h1>
 
-          {/* Loading and Error Handling */}
-          {loading && (
-            <p className="text-center text-gray-500">Loading books...</p>
-          )}
+          {loading && <p className="text-center text-gray-500">Loading books...</p>}
           {error && <p className="text-center text-red-500">{error}</p>}
 
           {/* Table */}
           <div className="overflow-x-auto">
-            <table className="w-full border border-collapse border-gray-300 table-auto">
+            <table className="w-full border border-collapse border-gray-300">
               <thead>
                 <tr className="bg-gray-200">
-                  <th className="px-4 py-2 border-b border-gray-300">Title</th>
-                  <th className="px-4 py-2 border-b border-gray-300">Author</th>
-                  <th className="px-4 py-2 border-b border-gray-300">ISBN</th>
-                  <th className="px-4 py-2 border-b border-gray-300">
-                    Category
-                  </th>
-                  <th className="px-4 py-2 border-b border-gray-300">Price</th>
-                  <th className="px-4 py-2 border-b border-gray-300">
-                    Available Copies
-                  </th>
-                  <th className="px-4 py-2 border-b border-gray-300">
-                    Total Copies
-                  </th>
+                  <th className="px-2 sm:px-4 py-2 border-b border-gray-300 text-sm sm:text-base">Title</th>
+                  <th className="px-2 sm:px-4 py-2 border-b border-gray-300 text-sm sm:text-base">Author</th>
+                  <th className="px-2 sm:px-4 py-2 border-b border-gray-300 text-sm sm:text-base">ISBN</th>
+                  <th className="px-2 sm:px-4 py-2 border-b border-gray-300 text-sm sm:text-base">Category</th>
+                  <th className="px-2 sm:px-4 py-2 border-b border-gray-300 text-sm sm:text-base">Price</th>
+                  <th className="px-2 sm:px-4 py-2 border-b border-gray-300 text-sm sm:text-base">Available</th>
+                  <th className="px-2 sm:px-4 py-2 border-b border-gray-300 text-sm sm:text-base">Total</th>
                 </tr>
               </thead>
               <tbody>
                 {currentData.map((book) => (
                   <tr key={book._id} className="text-center">
-                    <td className="px-4 py-2 border-b border-gray-300">
-                      {book.title}
-                    </td>
-                    <td className="px-4 py-2 border-b border-gray-300">
-                      {book.author}
-                    </td>
-                    <td className="px-4 py-2 border-b border-gray-300">
-                      {book.ISBN}
-                    </td>
-                    <td className="px-4 py-2 border-b border-gray-300">
-                      {book.category}
-                    </td>
-                    <td className="px-4 py-2 border-b border-gray-300">
-                      ${book.price}
-                    </td>
-                    <td className="px-4 py-2 border-b border-gray-300">
-                      {book.availableCopies}
-                    </td>
-                    <td className="px-4 py-2 border-b border-gray-300">
-                      {book.totalCopies}
-                    </td>
+                    <td className="px-2 sm:px-4 py-2 border-b border-gray-300 text-sm sm:text-base">{book.title}</td>
+                    <td className="px-2 sm:px-4 py-2 border-b border-gray-300 text-sm sm:text-base">{book.author}</td>
+                    <td className="px-2 sm:px-4 py-2 border-b border-gray-300 text-sm sm:text-base">{book.ISBN}</td>
+                    <td className="px-2 sm:px-4 py-2 border-b border-gray-300 text-sm sm:text-base">{book.category}</td>
+                    <td className="px-2 sm:px-4 py-2 border-b border-gray-300 text-sm sm:text-base">${book.price}</td>
+                    <td className="px-2 sm:px-4 py-2 border-b border-gray-300 text-sm sm:text-base">{book.availableCopies}</td>
+                    <td className="px-2 sm:px-4 py-2 border-b border-gray-300 text-sm sm:text-base">{book.totalCopies}</td>
                   </tr>
                 ))}
               </tbody>
@@ -110,23 +84,23 @@ const BooksTable = () => {
           </div>
 
           {/* Pagination */}
-          <div className="flex items-center justify-between mt-4">
+          <div className="flex flex-col sm:flex-row items-center justify-between mt-4 space-y-2 sm:space-y-0 sm:space-x-4">
             <button
               onClick={handlePrev}
               disabled={currentPage === 1}
-              className={`px-4 py-2 bg-blue-500 text-white font-bold rounded-lg hover:bg-blue-600 focus:outline-none ${
+              className={`w-full sm:w-auto px-3 sm:px-4 py-2 bg-blue-500 text-white font-bold rounded-lg hover:bg-blue-600 focus:outline-none ${
                 currentPage === 1 ? "opacity-50 cursor-not-allowed" : ""
               }`}
             >
               Previous
             </button>
-            <p className="text-gray-700">
+            <p className="text-gray-700 text-sm sm:text-base">
               Page {currentPage} of {totalPages}
             </p>
             <button
               onClick={handleNext}
               disabled={currentPage === totalPages}
-              className={`px-4 py-2 bg-blue-500 text-white font-bold rounded-lg hover:bg-blue-600 focus:outline-none ${
+              className={`w-full sm:w-auto px-3 sm:px-4 py-2 bg-blue-500 text-white font-bold rounded-lg hover:bg-blue-600 focus:outline-none ${
                 currentPage === totalPages ? "opacity-50 cursor-not-allowed" : ""
               }`}
             >
@@ -139,4 +113,4 @@ const BooksTable = () => {
   );
 };
 
-export default BooksTable;
+export default BooksTable;  

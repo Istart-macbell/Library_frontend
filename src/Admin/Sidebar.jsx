@@ -37,7 +37,7 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="relative h-screen">
+    <div className="relative z-30 h-screen">
       {/* Sidebar Toggle Button */}
       <button
         className="fixed top-4 right-4 z-50 flex items-center justify-center w-12 h-12 bg-gray-800 text-white rounded-full shadow-lg lg:hidden"
