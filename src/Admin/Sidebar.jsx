@@ -39,12 +39,19 @@ const Sidebar = () => {
   return (
     <div className="relative z-30 h-screen">
       {/* Sidebar Toggle Button */}
-      <button
-        className="fixed top-4 right-4 z-50 flex items-center justify-center w-12 h-12 bg-gray-800 text-white rounded-full shadow-lg lg:hidden"
-        onClick={toggleSidebar}
-      >
-        <span className="text-2xl">☰</span>
-      </button>
+
+      <div className="mb-10 fixed top-0 w-full bg-[#7E22CE] h-[9vh] text-white font-bold text-lg flex px-5 items-center justify-between  lg:hidden">
+          <h1 className="text-left">Admin Dashboard</h1>
+          <button
+          className=" z-50 flex items-center justify-center w-12 h-12  text-white rounded-full shadow-lg lg:hidden"
+          onClick={toggleSidebar}
+        >
+          <span className="text-2xl">☰</span>
+        </button>
+      </div>
+      
+
+      
 
       {/* Sidebar */}
       <div
