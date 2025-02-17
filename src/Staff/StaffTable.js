@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
 import Modal from "./Modal";
 import Sidebar from "../Admin/Sidebar";
+import { FaBars, FaTimes } from "react-icons/fa";
+
 const StaffTable = () => {
   const [staffData, setStaffData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false); // Sidebar open state
   const rowsPerPage = 5;
 
   const API_URL = "https://library-backend-4335.onrender.com/api/admin/staffs";
@@ -46,7 +49,7 @@ const StaffTable = () => {
   };
 
   const [formData, setFormData] = useState({
-    staffId:"",
+    staffId: "",
     amount: "",
     paymentMethod: "",
     remarks: "",
@@ -58,11 +61,10 @@ const StaffTable = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleModal=(id)=>{
-    // for setting id 
+  const handleModal = (id) => {
     setIsModalOpen(true);
-    setFormData({...formData, staffId:id });
-  }
+    setFormData({ ...formData, staffId: id });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -70,42 +72,53 @@ const StaffTable = () => {
       ...formData,
       date: formData.date || new Date().toISOString().substring(0, 10),
     };
-    // console.log(finalData);
-    
-  
+
     try {
-      const response = await fetch(`https://library-backend-4335.onrender.com/api/admin/add-salary/${formData.staffId}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(finalData),
-      });
-  
+      const response = await fetch(
+        `https://library-backend-4335.onrender.com/api/admin/add-salary/${formData.staffId}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(finalData),
+        }
+      );
+
       const result = await response.json();
-  
+
       if (response.ok) {
         alert("Salary added successfully");
-        // console.log("Salary added successfully:", result);
       } else {
         alert("Failed to add Salary");
-        // console.error("Failed to add salary:", result.message);
       }
     } catch (error) {
       alert("Error submitting salary data");
-      // console.error("Error submitting salary data:", error);
     }
   };
-  
 
   return (
     <div className="flex min-h-screen">
-      <Sidebar />
+      {/* Sidebar */}
+      <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+
       <div className="flex-1 flex flex-col items-center justify-center p-4 bg-gray-100">
+        {/* Header for small screen */}
+        <div className="w-full flex justify-between items-center p-4 bg-white shadow-md md:hidden">
+          <button
+            onClick={() => setSidebarOpen(!sidebarOpen)}
+            className="text-2xl text-gray-700"
+          >
+            {sidebarOpen ? <FaTimes /> : <FaBars />}
+          </button>
+          <h1 className="text-2xl font-bold text-gray-700">Staff Table</h1>
+        </div>
+
         <div className="w-full p-6 bg-white rounded-lg shadow-lg max-w-7xl">
-          <h1 className="mb-4 text-2xl font-bold text-center text-gray-700">
+          <h1 className="mb-4 text-2xl font-bold text-center text-gray-700 hidden md:block">
             Staff Table
           </h1>
+
           {loading ? (
             <p className="text-center text-gray-500">Loading data...</p>
           ) : error ? (
@@ -116,7 +129,6 @@ const StaffTable = () => {
                 <table className="w-full border border-collapse border-gray-300 table-auto">
                   <thead>
                     <tr className="bg-gray-200">
-                      {/* Table Headings */}
                       {[
                         "ID",
                         "First Name",
@@ -278,13 +290,12 @@ const StaffTable = () => {
                 </Modal>
               </div>
 
+              {/* Pagination */}
               <div className="flex justify-between mt-4">
                 <button
                   onClick={handlePrev}
                   disabled={currentPage === 1}
-                  className={`px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 ${
-                    currentPage === 1 ? "opacity-50 cursor-not-allowed" : ""
-                  }`}
+                  className={`px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 ${currentPage === 1 ? "opacity-50 cursor-not-allowed" : ""}`}
                 >
                   Previous
                 </button>
@@ -294,11 +305,7 @@ const StaffTable = () => {
                 <button
                   onClick={handleNext}
                   disabled={currentPage === totalPages}
-                  className={`px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 ${
-                    currentPage === totalPages
-                      ? "opacity-50 cursor-not-allowed"
-                      : ""
-                  }`}
+                  className={`px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 ${currentPage === totalPages ? "opacity-50 cursor-not-allowed" : ""}`}
                 >
                   Next
                 </button>

@@ -1,6 +1,7 @@
 // Importing necessary modules
 import React from 'react';
-import { FaHome, FaBook, FaMoneyBill, FaUserCircle, FaSignOutAlt } from 'react-icons/fa';
+import { FaHome, FaBook, FaMoneyBill, FaUserCircle, FaSignOutAlt, FaClipboardList, FaCog } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 const UserSidebar = () => {
     return (
@@ -13,21 +14,40 @@ const UserSidebar = () => {
                 <nav>
                     <ul className="space-y-4">
                         <li className="flex items-center space-x-3 hover:text-gray-400 cursor-pointer">
+                        <Link to="/user-dashboard" className="flex items-center space-x-3">
                             <FaHome />
                             <span>Dashboard</span>
+                            </Link>
                         </li>
                         <li className="flex items-center space-x-3 hover:text-gray-400 cursor-pointer">
                             <FaBook />
                             <span>Books</span>
                         </li>
                         <li className="flex items-center space-x-3 hover:text-gray-400 cursor-pointer">
+                        <Link to="/myfees" className="flex items-center space-x-3">
                             <FaMoneyBill />
                             <span>Fees</span>
+                            </Link>
                         </li>
                         <li className="flex items-center space-x-3 hover:text-gray-400 cursor-pointer">
+                        <Link to="/user-profile" className="flex items-center space-x-3">
                             <FaUserCircle />
                             <span>Profile</span>
-                        </li>
+                        </Link>
+                    </li>
+                    <li className="flex items-center space-x-3 hover:text-gray-400 cursor-pointer">
+                    <Link to="/plans-card" className="flex items-center space-x-3">
+                      <FaCog /> {/* Changed the icon */}
+                      <span>Plans</span>
+                    </Link>
+                  </li>
+                  
+                  <li className="flex items-center space-x-3 hover:text-gray-400 cursor-pointer">
+                    <Link to="/my-plans" className="flex items-center space-x-3">
+                      <FaClipboardList /> {/* Changed the icon */}
+                      <span>My Plans</span>
+                    </Link>
+                  </li>                   
                     </ul>
                 </nav>
             </div>

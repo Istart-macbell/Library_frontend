@@ -75,8 +75,8 @@ const Sidebar = () => {
           <li>
             <div
               className="flex items-center gap-2 px-4 py-2 hover:bg-gray-700 cursor-pointer"
-              onClick={() => toggleSection("administration")}
-            >
+              onClick={() => navigate("/")}
+              >
               <FaUserTie />
               <span>Administration</span>
             </div>
@@ -142,13 +142,48 @@ const Sidebar = () => {
                 </li>
                 <li
                   className="hover:text-gray-400 cursor-pointer"
-                  onClick={() => navigate("/fee")}
+                  onClick={() => navigate("/studentfees")}
                 >
                   Fee
                 </li>
               </ul>
             )}
           </li>
+
+
+                    {/* Plans */}
+                    <li>
+                    <div
+                      className="flex items-center gap-2 px-4 py-2 hover:bg-gray-700 cursor-pointer"
+                      onClick={() => toggleSection("plan")}
+                    >
+                      <FaUserGraduate />
+                      <span>Plans</span>
+                      {openSection === "plan" ? <IoMdArrowDropup className="ml-auto" /> : <IoMdArrowDropdown className="ml-auto" />}
+                    </div>
+                    {openSection === "plan" && (
+                      <ul className="pl-8 space-y-2">
+                        <li
+                          className="hover:text-gray-400 cursor-pointer"
+                          onClick={() => navigate("/plans")}
+                        >
+                          All Plans
+                        </li>
+                        <li
+                          className="hover:text-gray-400 cursor-pointer"
+                          onClick={() => navigate("/user-plans")}
+                        >
+                          Users Plans
+                        </li>
+                        <li
+                          className="hover:text-gray-400 cursor-pointer"
+                          onClick={() => navigate("/add-plan")}
+                        >
+                          Add Plan
+                        </li>
+                      </ul>
+                    )}
+                  </li>
 
           {/* Books Section */}
           <li>

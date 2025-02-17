@@ -13,7 +13,7 @@ const StaffSidebar = () => {
             </div>
             <ul className="mt-4">
                 <li className="p-4 hover:bg-blue-100 ">
-                    <Link to="/dashboard" className="flex items-center space-x-3">
+                    <Link to="/staff-dashboard" className="flex items-center space-x-3">
                         <FaHome />
                         <span>Dashboard</span>
                     </Link>
@@ -25,9 +25,9 @@ const StaffSidebar = () => {
                     </Link>
                 </li>
                 <li className="p-4 hover:bg-blue-100 ">
-                    <Link to="/staff" className="flex items-center space-x-3">
+                    <Link to="/staff-profile" className="flex items-center space-x-3">
                         <FaUsers />
-                        <span>Staff</span>
+                        <span>Staff Profile</span>
                     </Link>
                 </li>
                 <li className="p-4 hover:bg-blue-100 ">
@@ -37,7 +37,7 @@ const StaffSidebar = () => {
                     </Link>
                 </li>
                 <li className="p-4 hover:bg-blue-100 ">
-                    <Link to="/salary" className="flex items-center space-x-3">
+                    <Link to="/my-salary" className="flex items-center space-x-3">
                         <IoCashOutline />
                         <span>Salary</span>
                     </Link>

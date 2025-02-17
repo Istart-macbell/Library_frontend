@@ -58,7 +58,7 @@ const AddBook = () => {
       {/* Main content */}
       <div className="flex-1 overflow-y-auto bg-gray-100 p-8">
         <div className="max-w-4xl mx-auto px-4 py-8 bg-white shadow-lg rounded-lg mt-8">
-          <h1 className="text-3xl font-extrabold text-center mb-6 text-gray-800">
+          <h1 className="text-xl font-extrabold text-center mb-6 text-blue-800">
             Add New Book
           </h1>
 

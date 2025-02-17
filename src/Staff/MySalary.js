@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import Sidebar from "../Admin/Sidebar";
+import { FaBars, FaTimes } from "react-icons/fa"; // Mobile sidebar icons
+import StaffSidebar from "./StaffSidebar"; // Sidebar component
 
 const SalaryPage = () => {
   const [loading, setLoading] = useState(true);
@@ -8,6 +9,7 @@ const SalaryPage = () => {
   const recordsPerPage = 5;
   const API_KEY = localStorage.getItem("token");
   const staffId = "6790e6ebeaaff4463a0fb813";
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false); // Sidebar toggle state
 
   useEffect(() => {
     const fetchSalaryRecords = async () => {
@@ -40,54 +42,80 @@ const SalaryPage = () => {
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
+  const toggleSidebar = () => setIsSidebarOpen((prev) => !prev);
+
   return (
-    <div className="flex min-h-screen">
-      <div className="sidebar w-1/4 sticky top-0 h-screen">
-        <Sidebar />
+    <div className="flex min-h-screen bg-gray-100">
+      {/* Sidebar and Mobile Overlay */}
+      <div
+        className={`fixed inset-0 bg-gray-800 bg-opacity-50 transition-opacity lg:hidden ${isSidebarOpen ? "block" : "hidden"}`}
+        onClick={toggleSidebar}
+      ></div>
+
+      {/* Sidebar */}
+      <div
+        className={`fixed inset-y-0 left-0 bg-white shadow-lg transform lg:transform-none lg:relative w-64 transition-transform duration-300 ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"}`}
+      >
+        <StaffSidebar />
       </div>
-      <div className="w-3/4 p-8 overflow-y-auto">
-        <h1 className="mb-6 text-2xl font-bold text-center text-gray-700">
-          My Salary Records
-        </h1>
-        {loading ? (
-          <p className="text-center">Loading salary records...</p>
-        ) : (
-          <>
-            <table className="w-full border-collapse border border-gray-300">
+
+      {/* Main Content */}
+      <div className="flex-grow overflow-y-auto lg:ml-64">
+        {/* Mobile Header with Sidebar Toggle */}
+        <div className="flex items-center justify-between bg-purple-700 text-white p-4 shadow-lg lg:hidden">
+          <h1 className="text-lg font-bold">My Salary Records</h1>
+          <button onClick={toggleSidebar} className="text-2xl focus:outline-none">
+            {isSidebarOpen ? <FaTimes /> : <FaBars />}
+          </button>
+        </div>
+
+        <div className="min-h-screen bg-gray-100 flex flex-col items-center py-10">
+          {loading && <p className="text-lg text-gray-700">Loading salary records...</p>}
+
+          <div className="overflow-x-auto w-full max-w-6xl">
+            <table className="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
               <thead>
-                <tr className="bg-gray-200">
-                  <th className="border border-gray-300 p-2">Amount</th>
-                  <th className="border border-gray-300 p-2">Payment Method</th>
-                  <th className="border border-gray-300 p-2">Date</th>
-                  <th className="border border-gray-300 p-2">Payment Date</th>
-                  <th className="border border-gray-300 p-2">Remarks</th>
+                <tr className="bg-gray-800 text-white">
+                  <th className="py-3 px-6 text-left">Amount</th>
+                  <th className="py-3 px-6 text-left">Payment Method</th>
+                  <th className="py-3 px-6 text-left">Date</th>
+                  <th className="py-3 px-6 text-left">Payment Date</th>
+                  <th className="py-3 px-6 text-left">Remarks</th>
                 </tr>
               </thead>
               <tbody>
                 {currentRecords.map((record) => (
-                  <tr key={record._id} className="text-center">
-                    <td className="border border-gray-300 p-2">${record.amount || "N/A"}</td>
-                    <td className="border border-gray-300 p-2">{record.paymentMethod || "N/A"}</td>
-                    <td className="border border-gray-300 p-2">{new Date(record.date).toLocaleDateString()}</td>
-                    <td className="border border-gray-300 p-2">{new Date(record.paymentDate).toLocaleDateString()}</td>
-                    <td className="border border-gray-300 p-2">{record.remarks || "N/A"}</td>
+                  <tr key={record._id} className="border-b">
+                    <td className="py-3 px-6">{record.amount || "N/A"}</td>
+                    <td className="py-3 px-6">{record.paymentMethod || "N/A"}</td>
+                    <td className="py-3 px-6">{new Date(record.date).toLocaleDateString()}</td>
+                    <td className="py-3 px-6">{new Date(record.paymentDate).toLocaleDateString()}</td>
+                    <td className="py-3 px-6">{record.remarks || "N/A"}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
-            <div className="flex justify-center mt-4">
-              {Array.from({ length: Math.ceil(salaryRecords.length / recordsPerPage) }, (_, index) => (
-                <button
-                  key={index}
-                  onClick={() => paginate(index + 1)}
-                  className={`px-4 py-2 mx-1 border rounded-lg ${currentPage === index + 1 ? "bg-blue-500 text-white" : "bg-gray-200"}`}
-                >
-                  {index + 1}
-                </button>
-              ))}
-            </div>
-          </>
-        )}
+          </div>
+
+          {/* Pagination Controls */}
+          <div className="flex justify-center space-x-4 mt-4">
+            <button
+              onClick={() => paginate(currentPage - 1)}
+              disabled={currentPage === 1}
+              className="px-4 py-2 bg-gray-300 text-gray-700 rounded disabled:opacity-50"
+            >
+              Previous
+            </button>
+            <span className="text-lg font-semibold">Page {currentPage}</span>
+            <button
+              onClick={() => paginate(currentPage + 1)}
+              disabled={currentPage >= Math.ceil(salaryRecords.length / recordsPerPage)}
+              className="px-4 py-2 bg-gray-300 text-gray-700 rounded disabled:opacity-50"
+            >
+              Next
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );

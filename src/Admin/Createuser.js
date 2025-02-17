@@ -70,7 +70,7 @@ const CreateUser = () => {
       {/* Main content */}
       <div className="flex-1 overflow-y-auto bg-gray-100 p-6">
         <div className="bg-white shadow-md rounded-lg p-6 w-full max-w-4xl mx-auto">
-          <h1 className="text-2xl font-bold mb-6">Create User</h1>
+          <h1 className="text-2xl font-bold mb-6 mt-12 text-xl text-blue-800">Create User</h1>
           <form
             className="grid grid-cols-1 md:grid-cols-3 gap-4"
             onSubmit={handleSubmit}

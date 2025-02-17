@@ -32,7 +32,7 @@ const AdminStaffSalary = () => {
     <div className="flex">
       <Sidebar />
       <div className="p-6 max-w-6xl mx-auto w-full">
-        <h2 className="text-2xl font-bold mb-4 text-center">Admin Staff Salary</h2>
+        <h2 className="text-2xl font-bold mb-4 text-center mt-12 text-xl text-blue-700">Admin Staff Salary</h2>
         <div className="overflow-x-auto">
           <table className="min-w-full border-collapse border border-gray-300">
             <thead>

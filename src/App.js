@@ -26,6 +26,12 @@ import LibrarySettings from './Admin/Setting';
 import AllBooks from './Admin/AllBooks';
 import StaffProfile from './Staff/StaffProfile';
  import SalaryPage from './Staff/MySalary';
+ import PlanCard from './User/PlanCard';
+import AddPlanForm from './Admin/AddPlan';
+import AdminPlanCard from './Admin/PlanCard';
+import MyPlans from './User/MyPlans';
+import UserPlansTable from './Admin/UserPlansTable';
+import AdminDashboard from './Admin/AdminDashboard';
 
 
 function App() {
@@ -36,7 +42,7 @@ function App() {
         {/* Define routes for each component */}
         <Route path="/signup" element={<Signup />} />
         <Route path="/admin-login" element={<AdminLogin />} />
-        <Route path="/" element={<Admin/>} />
+        <Route path="/" element={<AdminDashboard/>} />
       <Route path="/dashboardB" element={<DashboardBlock/>} />
       <Route path="/navbar" element={<Navbar/>} />
       <Route path="/sidebar" element={<Sidebar/>}/>
@@ -50,6 +56,12 @@ function App() {
       <Route path="/staffsalary" element={< AdminStaffSalary/>} />
       <Route path="/myfees" element={< MyFees/>} />
       <Route path="/studentfees" element={<StudentFees/>} />
+      <Route path="/add-plan" element={<AddPlanForm/>} />
+      <Route path="/plans" element={<AdminPlanCard/>} />
+      <Route path="/user-plans" element={<UserPlansTable/>} />
+
+
+
       
 
 
@@ -83,6 +95,10 @@ function App() {
         <Route path="/user-dashboard" element={<UserDashboard/>} />
         <Route path="/user-table" element={<UserTable/>} />
         <Route path="/user-profile" element={<UserProfile/>} />
+        <Route path="/plans-card" element={<PlanCard/>} />
+        <Route path="/my-plans" element={<MyPlans/>} />
+
+
 
 
 

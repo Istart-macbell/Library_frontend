@@ -122,7 +122,7 @@ const UserTable = () => {
       {/* Main content */}
       <div className="flex-1 overflow-y-auto bg-gray-100 p-6">
         <div className="bg-white shadow-md rounded-lg p-4">
-          <h1 className="text-2xl font-bold mb-4">User Table</h1>
+          <h1 className="text-2xl font-bold mb-4 mt-12 text-blue-700 text-xl">User Table</h1>
 
           <div className="overflow-x-auto">
             <table className="table-auto w-full border border-gray-300">
